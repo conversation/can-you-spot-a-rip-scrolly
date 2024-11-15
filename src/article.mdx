@@ -2,6 +2,7 @@ import Image from './components/Image'
 import BackgroundImage from './components/BackgroundImage'
 import { ScrollSection, ScrollForeground, ScrollTextChapter, ScrollBackground } from './components/ScrollSection'
 import TitleSection from './components/TitleSection'
+import Picture from './components/Picture'
 import Infographic from './components/Infographic'
 import ArticleSetup from './context/ArticleSetup'
 import AuthorSection, { Editorial, Author, Editors, Authors, Disclosures, Acknowledgements } from './components/Authors'
@@ -29,20 +30,6 @@ import { ARTICLEWIDTH } from './util/constants'
   clipped={false}
   textBackground={true}
 >
-  {/* <Image
-    src='https://images.theconversation.com/files/629474/original/file-20241101-17-hvuwhr.png'
-    loading='eager'
-    className='h-full overflow-clip'
-    imgClassName='w-full h-full object-cover'
-    align=''
-    caption='Testing'
-    source='The Conversation'
-    sourceLink='sdfgsdfg'
-    alt='Title image'
-    fullBleed={false}
-    figHeight={window.innerHeight}
-  /> */}
-
   <BackgroundImage
     src='https://images.theconversation.com/files/629474/original/file-20241101-17-hvuwhr.png'
     alt='Title image'
@@ -50,6 +37,7 @@ import { ARTICLEWIDTH } from './util/constants'
     ar={'1:1'}
     sizes='(max-width: 599px) 100vw, 50vw'
   />
+
 </TitleSection>
 
 Stark health disparities exist across the United States. Life expectancy is
@@ -86,35 +74,47 @@ The scale of welfare programs and firearm regulations in these states also play 
 
 <ScrollSection pinType='pin_clipped' className='my-12'>
   <ScrollBackground>
-    <Image
+    <Picture
       src='https://images.theconversation.com/files/627226/original/file-20241022-16-jazot7.jpg'
       loading='eager'
       className='full_screen_media make_visible'
-      imgClassName=''
-      align=''
+      imgClassName='object-bottom-center'
       caption='Testing the caption.'
       source='The Conversation'
       sourceLink=''
       alt=''
-      fullBleed={true}
+      focalPoint={{
+        mobile: { x: 0.5, y: 0.5 },
+        tablet: { x: 0.5, y: 0.5 },
+        tabletLandscape: { x: 0.5, y: 0.5 },
+        laptop: { x: 0.5, y: 0.5 },
+        desktop: { x: 0.5, y: 0.5 }
+      }}
     />
-    <Image
+
+     <Picture
       src='https://images.theconversation.com/files/627222/original/file-20241022-20-4x1vlk.jpg'
-      loading='lazy'
+      loading='eager'
       className='full_screen_media'
-      imgClassName=''
-      align=''
-      caption=''
-      source=''
+      imgClassName='object-bottom-center'
+      caption='Testing the caption.'
+      source='The Conversation'
       sourceLink=''
-      alt='Title image'
-      fullBleed={true}
+      alt=''
+      focalPoint={{
+        mobile: { x: 0.5, y: 0.5 },
+        tablet: { x: 0.5, y: 0.5 },
+        tabletLandscape: { x: 0.5, y: 0.5 },
+        laptop: { x: 0.5, y: 0.5 },
+        desktop: { x: 0.5, y: 0.5 }
+      }}
     />
+
   </ScrollBackground>
   <ScrollForeground>
     <ScrollTextChapter className='mt-[20vh]' position='center'>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia cum nulla esse accusantium maiores laborum
-      similique rerum quam ad qui.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Mollitia cum nulla esse accusantium maiores laborum similique rerum quam ad qui.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
       Perferendis porro eveniet placeat, rerum soluta blanditiis natus. Iure itaque odit a quibusdam quidem rerum
@@ -124,6 +124,7 @@ The scale of welfare programs and firearm regulations in these states also play 
       Dolorum praesentium tempore quod eius alias, harum officiis provident at quia porro sequi? Quo quidem ipsam
       corrupti numquam tempora laudantium!
     </ScrollTextChapter>
+
   </ScrollForeground>
 </ScrollSection>
 
@@ -159,7 +160,6 @@ Greater trust in government is [linked](https://www.oecd.org/en/topics/sub-issue
   alt='A man holds a sign that says "medical freedom is a human right" with two US flags.'
   source='Ron Adar/Shutterstock'
   caption='Political division in the United States intensified during the COVID pandemic.'
-
 />
 
 In Australia, the [Australian Cohesion Index](https://scanloninstitute.org.au/sites/default/files/2023-11/2023%20Mapping%20Social%20Cohesion%20Report.pdf) shows the pandemic and cost-of-living crisis have eroded trust in government and affected health and well-being. At the same time, Australians [see the nation](https://www.edelman.com.au/australia-path-polarisation-edelman-trust-barometer-2023) as increasingly polarised.
