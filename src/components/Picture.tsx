@@ -31,18 +31,25 @@ export default function Picture({
   focalPoint
 }: PictureProps) {
   interface SizingParams {
-    ar: string
+    ar?: string
     'fp-x': number
     'fp-y': number
   }
 
   const sizingParams: Record<string, SizingParams> = {
-    mobile: { ar: '3:4', 'fp-x': focalPoint.mobile.x, 'fp-y': focalPoint.mobile.y },
-    tablet: { ar: '1:1', 'fp-x': focalPoint.tablet.x, 'fp-y': focalPoint.tablet.y },
-    tabletLandscape: { ar: '4:3', 'fp-x': focalPoint.tabletLandscape.x, 'fp-y': focalPoint.tabletLandscape.y },
-    laptop: { ar: '16:9', 'fp-x': focalPoint.laptop.x, 'fp-y': focalPoint.laptop.y },
-    desktop: { ar: '16:9', 'fp-x': focalPoint.desktop.x, 'fp-y': focalPoint.desktop.y }
+    mobile: { 'fp-x': focalPoint.mobile.x, 'fp-y': focalPoint.mobile.y },
+    tablet: { 'fp-x': focalPoint.tablet.x, 'fp-y': focalPoint.tablet.y },
+    tabletLandscape: { 'fp-x': focalPoint.tabletLandscape.x, 'fp-y': focalPoint.tabletLandscape.y },
+    laptop: { 'fp-x': focalPoint.laptop.x, 'fp-y': focalPoint.laptop.y },
+    desktop: { 'fp-x': focalPoint.desktop.x, 'fp-y': focalPoint.desktop.y }
   }
+  // const sizingParams: Record<string, SizingParams> = {
+  //   mobile: { ar: '3:4', 'fp-x': focalPoint.mobile.x, 'fp-y': focalPoint.mobile.y },
+  //   tablet: { ar: '1:1', 'fp-x': focalPoint.tablet.x, 'fp-y': focalPoint.tablet.y },
+  //   tabletLandscape: { ar: '4:3', 'fp-x': focalPoint.tabletLandscape.x, 'fp-y': focalPoint.tabletLandscape.y },
+  //   laptop: {ar:'16:9, 'fp-x': focalPoint.laptop.x, 'fp-y': focalPoint.laptop.y },
+  //   desktop: {ar:'16:9, 'fp-x': focalPoint.desktop.x, 'fp-y': focalPoint.desktop.y }
+  // }
 
   const imgixParams = {
     fit: 'crop',
@@ -50,8 +57,6 @@ export default function Picture({
     auto: 'format,compress',
     usm: 12
   }
-
-  const srcSetParams = `fit=${imgixParams.fit}&auto=${imgixParams.auto}&crop=${imgixParams.crop}&usm=${imgixParams.usm}`
 
   const renderSource = () =>
     source &&
@@ -68,7 +73,7 @@ export default function Picture({
   return (
     <figure className={cn('', className)}>
       <picture>
-        {breakpoints.map(({ media, sizing }) => (
+        {breakpoints.map(({ media, sizingName }) => (
           <source
             key={media}
             media={media}
@@ -76,12 +81,17 @@ export default function Picture({
             srcSet={widthsQualities
               .map(
                 (d) =>
-                  `${src}?${srcSetParams}&fp-x=${sizingParams[sizing]['fp-x']}&fp-y=${sizingParams[sizing]['fp-y']}&q=${d.q}&dpr=${d.dpr}&w=${d.w}&ar=${sizingParams[sizing].ar} ${d.w}w`
+                  `${src}?fit=${imgixParams.fit}&auto=${imgixParams.auto}&crop=${imgixParams.crop}&usm=${imgixParams.usm}&fp-x=${sizingParams[sizingName]['fp-x']}&fp-y=${sizingParams[sizingName]['fp-y']}&q=${d.q}&dpr=${d.dpr}&w=${d.w}&ar=${sizingParams[sizingName].ar} ${d.w}w`
               )
               .join(', ')}
           />
         ))}
-        <img className={cn('', imgClassName)} src={`${src}?${srcSetParams}&w=1000`} loading={loading} alt={alt} />
+        <img
+          className={cn('', imgClassName)}
+          src={`${src}?fit=${imgixParams.fit}&auto=${imgixParams.auto}&crop=${imgixParams.crop}&usm=${imgixParams.usm}&w=800`}
+          loading={loading}
+          alt={alt}
+        />
       </picture>
       <figcaption>
         {caption}

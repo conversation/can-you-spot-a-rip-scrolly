@@ -3,7 +3,7 @@ import TitleTextBorder from './TitleTextBorder'
 import { cn } from '../util/helpers'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useDarkMode } from '../context/useDarkMode'
+// import { useDarkMode } from '../context/useDarkMode'
 
 export default function TitleSection({
   children,
@@ -30,10 +30,10 @@ export default function TitleSection({
   clipped?: boolean
   textBackground?: boolean
 }) {
-  const { isDarkMode } = useDarkMode()
+  // const { isDarkMode } = useDarkMode()
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  const crateAuthor = () => {
+  const createAuthor = () => {
     return (
       <>
         {authorLink ? (
@@ -67,13 +67,12 @@ export default function TitleSection({
       const header = document.querySelector('header')
       if (!header) return
 
-      const titleImage = section.querySelector('img')
+      const titleImage = section.querySelector('#titleImg > *')
 
       if (titleImage) {
         gsap
           .timeline({
             scrollTrigger: {
-              // markers: true,
               scrub: true,
               trigger: clipped ? section : titleImage,
               start: 'top top',
@@ -99,24 +98,14 @@ export default function TitleSection({
         clipped ? '[clip-path:inset(0px_0px)]' : ''
       )}
     >
-      <div
-        className={cn(
-          'grid h-full w-full grid-cols-1 grid-rows-[60%_1fr] lg:grid-cols-[45%_1fr] lg:grid-rows-1 xl:grid-cols-2',
-          clipped ? 'fixed top-0' : ''
-        )}
-      >
-        <div
-          className={cn(
-            'order-1 place-content-center bg-gradient-to-b px-8 lg:order-first lg:pt-12 lg:text-left',
-            isDarkMode ? 'from-neutral-900/50' : 'from-neutral-400/50'
-          )}
-        >
-          <div className='mx-auto max-w-[45ch] text-center'>
+      <div className={cn('grid h-full w-full', clipped ? 'fixed top-0' : '')}>
+        <div className={cn('z-10 col-start-1 row-start-1 mt-[20vh] max-h-screen place-content-center px-8 lg:pt-12')}>
+          <div className='mx-auto max-w-[40ch] text-center'>
             {textBackground && title ? (
               <>
                 <TitleTextBorder
                   as={'h1'}
-                  className='text-balance text-center font-base text-4xl font-bold md:text-5xl lg:text-6xl'
+                  className='not-prose text-balance text-center font-base text-4xl font-bold md:text-5xl lg:text-6xl'
                 >
                   {title}
                 </TitleTextBorder>
@@ -129,16 +118,14 @@ export default function TitleSection({
             )}
 
             {textBackground && standFirst ? (
-              <TitleTextBorder as={'h2'} className='text-balance font-base text-2xl font-bold md:text-3xl lg:text-4xl'>
+              <TitleTextBorder as={'h2'} className='not-prose text-center font-base text-2xl md:text-3xl lg:text-4xl'>
                 {standFirst}
               </TitleTextBorder>
             ) : (
-              <h2 className='not-prose text-balance font-base text-2xl font-bold md:text-3xl lg:text-4xl'>
-                {standFirst}
-              </h2>
+              <h2 className='not-prose text-center font-base text-2xl md:text-3xl lg:text-4xl'>{standFirst}</h2>
             )}
 
-            <p className='!mb-1 !mt-4 text-xs md:text-sm'>{crateAuthor()}</p>
+            <p className='!mb-1 !mt-4 text-xs md:text-sm'>{createAuthor()}</p>
 
             <time dateTime={publishDate} className='not-prose m-0 font-base text-xs'>
               Published:{' '}
@@ -158,8 +145,23 @@ export default function TitleSection({
             </time>
           </div>
         </div>
-        <div id='titleImg' className='not-prose h-full w-full overflow-clip'>
+        <div id='titleImg' className='not-prose col-start-1 row-start-1 h-full w-full overflow-clip'>
           {children}
+        </div>
+        <div className='absolute bottom-5 left-1/2 -translate-x-1/2'>
+          <div className='animate-bounce'>
+            <svg
+              className='h-6 w-6 text-neutral-900'
+              fill='none'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='3'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path d='M19 14l-7 7m0 0l-7-7m7 7V3'></path>
+            </svg>
+          </div>
         </div>
       </div>
     </section>

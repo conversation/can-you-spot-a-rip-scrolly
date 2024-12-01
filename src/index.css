@@ -22,8 +22,8 @@
     }
   }
 
-  .standard_width {
-    @apply mx-auto w-[min(calc(100%-40px),750px)];
+  .drop-cap::first-letter {
+    @apply float-left mb-[-0.4rem] mr-[0.1em] mt-[0.05rem] block max-w-full text-[5.925em] leading-[0.9] md:text-[6em];
   }
 
   .make_visible {
@@ -31,24 +31,20 @@
   }
 
   .imgfloat-right {
-    @apply float-right !mb-8 !mt-0 md:ml-4 md:mr-[max(20px,calc((100%-750px)/2))] md:w-[calc(750px/2)] 2xl:md:w-[calc(800px/2)] 2xl:mr-[calc((100%-800px)/2)];
+    @apply float-right !mb-8 !mt-0 md:ml-4 md:mr-article-float-margin md:w-article-width-half;
+  }
+
+  .imgfloat-left {
+    @apply float-left !mb-8 !mt-0 md:ml-article-float-margin md:mr-4 md:w-article-width-half;
   }
 
   .imgfloat-right figcaption,
   .imgfloat-left figcaption {
     @apply !max-w-none;
   }
-
-  .imgfloat-left {
-    @apply float-left !mb-8 !mt-0 md:ml-[max(20px,calc((100%-750px)/2))] md:mr-4 md:w-[calc(750px/2)] 2xl:md:w-[calc(800px/2)] 2xl:ml-[calc((100%-800px)/2)];
-  }
 }
 
 @layer components {
-  .drop_cap {
-    @apply float-left -mb-2 -mt-2 pr-2 text-[5rem] leading-none;
-  }
-
   /* --------- Pinned section --------- */
 
   .pinned_section {
@@ -82,11 +78,11 @@
   }
 
   .chapter_wrapper {
-    @apply pointer-events-none flex h-screen w-full flex-col justify-center;
+    @apply pointer-events-none flex h-screen max-w-full flex-col justify-center;
   }
 
   .chapter_wrapper > * {
-    @apply pointer-events-auto text-balance bg-[rgba(0,0,0,0.6)] p-5 backdrop-blur-sm;
+    @apply text-balance bg-[rgba(0,0,0,0.6)] p-5 backdrop-blur-sm;
   }
 
   .chapter_wrapper.right {
@@ -107,7 +103,7 @@
     @apply items-center;
   }
   .chapter_wrapper.center > * {
-    @apply text-center md:max-w-[80%];
+    @apply text-center;
   }
 
   /* ----- FOR THE PINNED BACKGROUND  ----- */
@@ -125,11 +121,11 @@
   }
 
   .full_screen_media {
-    @apply pointer-events-none absolute left-0 top-0 h-screen w-full object-cover opacity-0 transition-opacity duration-700 ease-in-out;
+    @apply pointer-events-none absolute left-0 top-0 h-full w-full content-center opacity-0 transition-opacity duration-700 ease-in-out;
   }
 
   .full_screen_media img {
-    @apply h-screen w-full object-cover;
+    @apply mx-auto h-screen w-screen object-cover;
   }
 
   .full_screen_media figcaption {

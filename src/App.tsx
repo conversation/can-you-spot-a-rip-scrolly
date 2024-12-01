@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Article from './components/Article'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -8,6 +9,17 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 export default function App() {
   gsap.registerPlugin(ScrollTrigger)
+
+  useEffect(() => {
+    document.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('load', () => {
+        img.setAttribute('loaded', '')
+      })
+      if (img.complete) {
+        img.setAttribute('loaded', '')
+      }
+    })
+  }, [])
 
   return (
     <DarkModeProvider>

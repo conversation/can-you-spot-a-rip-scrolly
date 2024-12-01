@@ -87,6 +87,17 @@ export default {
       mono: 'ui-monospace, "Courier New", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;'
     },
     extend: {
+      width: {
+        'canvas-width': `calc(min(${FIGUREWIDTH.widthCalc}, calc(90vh * (4 / 3))))`,
+        'canvas-width-video': `calc(min(${FIGUREWIDTH.widthCalc}, calc(90vh * (16 / 9))))`
+      },
+      spacing: {
+        'article-width-half': `calc(${ARTICLEWIDTH.maxWidth / 2}px)`
+      },
+      margin: {
+        'article-float-margin': `max(20px, calc((100% - ${ARTICLEWIDTH.maxWidth}px) / 2))`
+      },
+
       typography: ({ theme }) => ({
         light: {
           css: {

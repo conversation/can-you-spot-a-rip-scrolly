@@ -1,3 +1,5 @@
+import { ARTICLEWIDTH } from '../util/constants'
+
 export default function Footer() {
   return (
     <footer className='flex flex-col gap-3 bg-neutral-900 pt-3 text-xs md:text-sm'>
@@ -34,8 +36,13 @@ export default function Footer() {
         </a>
       </div>
       <div className='bg-black'>
-        <div className='standard_width flex flex-wrap items-center justify-between gap-2 px-2 py-1'>
-          <nav className='m-auto flex gap-2'>
+        <div
+          className='mx-auto flex flex-col items-center justify-between gap-2 py-1 md:flex-row'
+          style={{
+            width: `min(100% - 40px, ${ARTICLEWIDTH.maxWidth}px)`
+          }}
+        >
+          <nav className='mx-auto flex gap-2 md:mx-0'>
             <a
               className='leading-normal text-neutral-200 no-underline hover:underline'
               href='https://theconversation.com/au/privacy-policy'
@@ -58,8 +65,8 @@ export default function Footer() {
               Corrections
             </a>
           </nav>
-          <p className='m-auto w-fit text-neutral-200'>
-            Copyright © 2010–2024,{' '}
+          <p className='mx-auto w-fit text-neutral-200 md:mx-0'>
+            Copyright © 2010–{new Date().getFullYear()},{' '}
             <a
               className='leading-normal text-neutral-200 no-underline hover:underline'
               href='https://theconversation.com/au/who-we-are'

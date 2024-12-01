@@ -5,12 +5,12 @@ import { useDarkMode } from '../context/useDarkMode'
 export default function TitleTextBorder({
   children,
   className,
-  as: Component = 'div' // Default to div if not specified
+  as: Component = 'div'
 }: {
   children: ReactNode
   className?: string
   background?: string
-  as?: ElementType // Element type prop
+  as?: ElementType
 }) {
   const { isDarkMode } = useDarkMode()
 
@@ -20,17 +20,17 @@ export default function TitleTextBorder({
         <div className='col-span-1 col-start-1 row-span-1 row-start-1' aria-hidden='true'>
           <Component
             className={cn(
-              'not-sr-only pointer-events-none inline select-none bg-neutral-50 decoration-clone px-3 py-1 !leading-[1]',
+              'not-sr-only pointer-events-none inline select-none bg-neutral-50 decoration-clone px-[0.5ch] py-1 !leading-[1]',
               className
             )}
-          >
-            {children}
-          </Component>
+            dangerouslySetInnerHTML={{ __html: children }}
+          ></Component>
         </div>
         <div className='col-span-1 col-start-1 row-span-1 row-start-1'>
-          <Component className={cn('inline decoration-clone px-3 !leading-[1] mix-blend-darken', className)}>
-            {children}
-          </Component>
+          <Component
+            className={cn('inline decoration-clone px-[0.5ch] !leading-[1] mix-blend-darken', className)}
+            dangerouslySetInnerHTML={{ __html: children }}
+          ></Component>
         </div>
       </div>
     )
@@ -41,15 +41,17 @@ export default function TitleTextBorder({
       <div className='col-span-1 col-start-1 row-span-1 row-start-1' aria-hidden='true'>
         <Component
           className={cn(
-            'not-sr-only pointer-events-none inline select-none bg-neutral-800 decoration-clone px-3 py-1 !leading-[1]',
+            'not-sr-only pointer-events-none inline select-none bg-neutral-700 decoration-clone px-[0.5ch] py-1 !leading-[1]',
             className
           )}
-        >
-          {children}
-        </Component>
+          dangerouslySetInnerHTML={{ __html: children }}
+        ></Component>
       </div>
       <div className='col-span-1 col-start-1 row-span-1 row-start-1'>
-        <Component className={cn('inline decoration-clone px-3 !leading-[1]', className)}>{children}</Component>
+        <Component
+          className={cn('inline decoration-clone px-[0.5ch] !leading-[1]', className)}
+          dangerouslySetInnerHTML={{ __html: children }}
+        ></Component>
       </div>
     </div>
   )

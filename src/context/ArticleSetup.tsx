@@ -57,9 +57,7 @@ export default function ArticleSetup({
 
     const firstPar = article.querySelector(':scope > p')
     if (dropCap && firstPar && firstPar.textContent) {
-      const firstChar = firstPar.textContent[0]
-      const restOfText = firstPar.textContent.slice(1)
-      firstPar.innerHTML = `<span class="drop_cap">${firstChar}</span>${restOfText}`
+      firstPar.classList.add('drop-cap')
     }
 
     // Theme handling

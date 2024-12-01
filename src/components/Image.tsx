@@ -11,10 +11,7 @@ export default function Image({
   className,
   imgClassName,
   align,
-  alt,
-  fullBleed,
-  figWidth,
-  figHeight
+  alt
 }: {
   src: string
   loading: string
@@ -25,9 +22,6 @@ export default function Image({
   imgClassName?: string
   align?: string
   alt: string
-  fullBleed?: boolean
-  figWidth?: number
-  figHeight?: number
 }) {
   const commonProps: {
     imgixParams: {
@@ -38,7 +32,7 @@ export default function Image({
     alt: string
   } = {
     imgixParams: {
-      fit: figHeight || figWidth ? '' : 'crop',
+      fit: 'crop',
       auto: 'format',
       q: 30
     },
@@ -65,15 +59,9 @@ export default function Image({
     )
   }
 
-  const alignmentSize = figWidth
-    ? `${figWidth}px`
-    : align?.length
-      ? `${ARTICLEWIDTH.maxWidth / 2}px`
-      : `${FIGUREWIDTH.maxWidth}px`
+  const alignmentSize = align?.length ? `${ARTICLEWIDTH.maxWidth / 2}px` : `${FIGUREWIDTH.maxWidth}px`
 
-  const sizes = fullBleed
-    ? '100vw'
-    : `(max-width: 599px) 100vw, (min-width: 600px) ${alignmentSize}, (min-width: 1536px) ${alignmentSize}, ${alignmentSize}`
+  const sizes = `(max-width: 599px) 100vw, (min-width: 600px) ${alignmentSize}, (min-width: 1536px) ${alignmentSize}, ${alignmentSize}`
 
   const figureAlignmentClass = align === 'left' ? 'imgfloat-left' : align === 'right' ? 'imgfloat-right' : ''
 
@@ -87,7 +75,6 @@ export default function Image({
           width: '100%',
           height: 'auto'
         }}
-        height={figHeight}
         src={src}
         sizes={sizes}
       />

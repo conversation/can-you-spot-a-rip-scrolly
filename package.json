@@ -14,13 +14,18 @@
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@mdx-js/rollup": "^3.1.0",
+    "@react-hook/size": "^2.1.2",
     "@tailwindcss/typography": "^0.5.15",
     "clsx": "^2.1.1",
     "gsap": "^3.12.5",
+    "jotai": "^2.10.3",
+    "konva": "^9.3.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-imgix": "^9.10.0",
-    "tailwind-merge": "^2.5.4"
+    "react-konva": "^18.2.10",
+    "tailwind-merge": "^2.5.4",
+    "use-image": "^1.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

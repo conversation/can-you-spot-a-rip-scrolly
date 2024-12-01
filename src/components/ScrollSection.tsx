@@ -3,7 +3,8 @@ import { addClassToChildren, cn } from '../util/helpers'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-// import Imgix from 'react-imgix'
+import { ARTICLEWIDTH } from '../util/constants'
+import useSize from '@react-hook/size'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,6 +20,7 @@ export function ScrollSection({
   id?: string
 }) {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const [width, height] = useSize(sectionRef)
 
   useGSAP(
     () => {
@@ -48,6 +50,142 @@ export function ScrollSection({
     { scope: sectionRef }
   )
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const backgroundElements = section.querySelectorAll('.pinned_background_wrapper > *')
+      const firstDrawPar = section.querySelector('#draw1-step')
+      const canvas = backgroundElements[1].querySelector('.canvas-container')
+      const img = backgroundElements[0].querySelector('img')
+
+      if (!firstDrawPar || !img || !canvas) return
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: firstDrawPar,
+            start: '50% 40%',
+            end: '50% top',
+            scrub: true
+          }
+        })
+        .to(img, { height: canvas.clientHeight, width: canvas.clientWidth, borderRadius: '0.375rem' })
+    },
+    { dependencies: [width, height], scope: sectionRef, revertOnUpdate: true }
+  )
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const backgroundElements = section.querySelectorAll('.pinned_background_wrapper > *')
+      const firstDrawPar = section.querySelector('#draw4-step')
+      const canvas = backgroundElements[1].querySelector('.canvas-container')
+      const img = backgroundElements[4].querySelector('img')
+
+      if (!firstDrawPar || !img || !canvas) return
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: firstDrawPar,
+            start: '50% 40%',
+            end: '50% top',
+            scrub: true
+          }
+        })
+        .to(img, { height: canvas.clientHeight, width: canvas.clientWidth, borderRadius: '0.375rem' })
+    },
+    { dependencies: [width, height], scope: sectionRef, revertOnUpdate: true }
+  )
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const drawPar = section.querySelector('#draw5-step')
+      const drawPar2 = section.querySelector('#draw5-step-2')
+
+      const controls: NodeList | null = section.querySelectorAll('.draw5Controls')
+      const video: HTMLVideoElement | null = section.querySelector('#draw5video')
+      const playBtn: HTMLButtonElement | null = section.querySelector('#draw5PlayBtn')
+
+      if (!drawPar || !drawPar2 || !controls || !playBtn || !video) return
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: drawPar,
+            start: 'center 90%',
+            scrub: true
+          }
+        })
+        .to(controls, { opacity: 100 })
+
+      ScrollTrigger.create({
+        trigger: drawPar2,
+        start: 'center 75%',
+        onEnter: () => {
+          if (playBtn.textContent === 'Play video') {
+            video.play()
+            playBtn.textContent = 'Restart'
+          }
+        },
+        onLeaveBack: () => {
+          if (playBtn.textContent === 'Restart' || playBtn.textContent === 'Replay') {
+            video.pause()
+            video.currentTime = 0
+            playBtn.textContent = 'Play video'
+          }
+        }
+      })
+    },
+    { scope: sectionRef }
+  )
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const drawPar = section.querySelector('#draw6-step')
+      const canvas = section.querySelector('#draw6Canvas')
+
+      const controls = section.querySelector('#draw6Controls')
+
+      if (!drawPar || !controls || !canvas) return
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: drawPar,
+            start: 'center 90%',
+            scrub: true
+          }
+        })
+        .to(controls, { opacity: 100 })
+        .to(canvas, { opacity: 100 }, '<')
+
+      ScrollTrigger.create({
+        trigger: drawPar,
+        start: 'center 75%',
+        onEnter: () => {
+          gsap.set(canvas, { opacity: 100 })
+          gsap.set(controls, { opacity: 100 })
+        },
+        onLeaveBack: () => {
+          gsap.set(canvas, { opacity: 0 })
+          gsap.set(controls, { opacity: 0 })
+        }
+      })
+    },
+    { scope: sectionRef }
+  )
+
   return (
     <section
       id={id}
@@ -68,100 +206,34 @@ export function ScrollBackground({ children }: { children: ReactNode }) {
 }
 
 export function ScrollForeground({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn('pinned_foreground standard_width', className)}>{children}</div>
+  return (
+    <div
+      className={cn('pinned_foreground mx-auto', className)}
+      style={{
+        width: `min(100% - 40px, ${ARTICLEWIDTH.maxWidth}px)`
+      }}
+    >
+      {children}
+    </div>
+  )
 }
-
-// export function ScrollFigure({
-//   src,
-//   lazyLoad,
-//   figcaption,
-//   source,
-//   sourceLink,
-//   className,
-//   imgClassName
-// }: {
-//   src: string
-//   lazyLoad?: string
-//   figcaption?: string
-//   source?: string
-//   sourceLink?: string
-//   className?: string
-//   imgClassName?: string
-// }) {
-//   const commonProps: {
-//     src: string
-//     sizes: string
-//     imgixParams: {
-//       fit: string
-//       usm: number
-//       auto: string
-//       q: number
-//     }
-//     loading?: string
-//   } = {
-//     src: src,
-//     sizes: '100vw',
-//     imgixParams: {
-//       fit: 'crop',
-//       usm: 12,
-//       auto: 'format,compress',
-//       q: 45
-//     }
-//   }
-
-//   if (lazyLoad === 'lazy') {
-//     commonProps.loading = 'lazy'
-//   }
-
-//   const renderSource = () => {
-//     if (!source) return null
-
-//     return sourceLink ? (
-//       <>
-//         {' '}
-//         <span>
-//           <a
-//             className='underline hover:text-neutral-100 active:text-neutral-100'
-//             href={sourceLink}
-//             target='_blank'
-//             rel='noopener noreferrer'
-//           >
-//             {source}
-//           </a>
-//         </span>
-//       </>
-//     ) : (
-//       <>
-//         <span>{source}</span>
-//       </>
-//     )
-//   }
-
-//   return (
-//     <figure className={cn('full_screen_media', className)}>
-//       <Imgix {...commonProps} className={cn('', imgClassName)} />
-//       {figcaption && (
-//         <figcaption className=''>
-//           {figcaption}
-//           {renderSource()}
-//         </figcaption>
-//       )}
-//     </figure>
-//   )
-// }
 
 export function ScrollTextChapter({
   children,
   className,
   position,
-  step
+  step,
+  id
 }: {
   children: ReactNode
   className: string
   position?: string
   step?: string
+  id?: string
 }) {
   return (
-    <div className={cn('chapter_wrapper', className, position)}>{addClassToChildren(children, step ? 'step' : '')}</div>
+    <div className={cn('chapter_wrapper', className, position)} id={id}>
+      {addClassToChildren(children, step ? 'step' : '')}
+    </div>
   )
 }

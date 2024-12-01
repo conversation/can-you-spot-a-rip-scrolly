@@ -7,10 +7,17 @@ import Infographic from './components/Infographic'
 import ArticleSetup from './context/ArticleSetup'
 import AuthorSection, { Editorial, Author, Editors, Authors, Disclosures, Acknowledgements } from './components/Authors'
 import { ARTICLEWIDTH } from './util/constants'
+import QuizOne from './components/quiz/QuizOne'
+import QuizTwo from './components/quiz/QuizTwo'
+import QuizThree from './components/quiz/QuizThree'
+import QuizFour from './components/quiz/QuizFour'
+import QuizFive from './components/quiz/QuizFive'
+import QuizSix from './components/quiz/QuizSix'
+import QuizSeven from './components/quiz/QuizSeven'
 
 <ArticleSetup
-  theme='dark'
-  title='A scrolly layout'
+  theme='light'
+  title='How to spot a rip'
   dropCap={true}
   author='Ruby Ekkel'
   image='https://images.theconversation.com/files/629474/original/file-20241101-17-hvuwhr.png?auto=format&fit=crop&q=30&ixlib=react-9.10.0&w=1946'
@@ -19,70 +26,67 @@ import { ARTICLEWIDTH } from './util/constants'
 />
 
 <TitleSection
-  title=''
-  standFirst='Tech billionaire Elon Musk’s social media posts have had a ‘sudden boost’ since July, new research reveals'
-  publishDate='2024-10-30T03:37:13'
-  author='Ruby Ekkel'
+  title='Can you <br/> spot a rip?'
+  standFirst='Learn to identify deadly currents in 10 minutes'
+  publishDate={new Date()}
+  author='Rob Brander'
   authorLink='www.google.com'
   authorAffiliation='Australia National University'
   authorAffiliationLink='www.google.com'
   className=''
-  clipped={false}
+  clipped={true}
   textBackground={true}
 >
-  <BackgroundImage
-    src='https://images.theconversation.com/files/629474/original/file-20241101-17-hvuwhr.png'
-    alt='Title image'
-    focalPoint={{x:0.5,y:0.5}}
-    ar={'1:1'}
-    sizes='(max-width: 599px) 100vw, 50vw'
+  <video
+    id='title_video'
+    playsInline
+    muted
+    autoPlay
+    loop
+    src='titleVideo.webm'
+    className='h-full w-full object-cover object-bottom'
   />
-
 </TitleSection>
 
-Stark health disparities exist across the United States. Life expectancy is
-[lower](https://mcpress.mayoclinic.org/healthy-aging/whats-behind-the-decline-in-american-life-expectancy/) than in
-other wealthy countries – and declining. The richest American men live 15 years longer than their [poorest
-counterparts](http://www.equality-of-opportunity.org/health/). The richest American women live ten years longer.{' '}
-
-Political differences are an interesting and provocative way of looking at these disparities.
-
-Differences are frequently [analysed by race](https://www.cdc.gov/healthyyouth/disparities/index.htm), a proxy for other factors that influence health, such as housing, environmental pollution, nutrition and affordable access to health care.
-
-But there are other ways to cut the data. This includes by state – whether it is "red" (governed by the Republican party) or "blue" (by the Democrats). We can also look at individual political affiliation.
-
-One [new study](https://www.nature.com/articles/s41591-024-03307-w) from the US looks at political polarisation as a risk factor for individual and collective wellbeing. It finds polarisation – where opinions and beliefs become concentrated at opposing extremes – has a major impact on health.
-
-The paper explores the health risks of polarisation using the COVID pandemic as a case study. COVID saw Americans die at [far higher rates](https://www.nytimes.com/interactive/2022/02/01/science/covid-deaths-united-states.html) than people in other wealthy nations.
-
-Australia escaped the high death toll. But there are still significant lessons we can learn – about how increasing polarisation affects our health and wellbeing, and for the effective management of pandemics and other health crises.
-
-## Political orientation and health
-
-The relationship between important health measures, political loyalties and voting patterns in US counties and states is significant. At the state level, policy-making has become increasingly linked to political ideology. With this, [differences in lifespan and health status](https://pubmed.ncbi.nlm.nih.gov/34531640/) across states have grown.
-
-On average, life expectancy for residents in Democratic-voting states is [more than two years longer](https://www.newsweek.com/how-life-expectancy-republican-states-compares-democrat-ones-1811447) than in Republican states. Political orientation is also a strong predictor of [obesity rates](https://www.psychologytoday.com/au/blog/the-human-beast/202011/why-red-states-suffer-greater-obesity) and [chronic illnesses](https://www.medrxiv.org/content/10.1101/2020.08.05.20169003v1.full) linked to obesity, such as heart disease and diabetes.
-
-Red states have higher [gun death
-rates](https://www.congress.gov/118/meeting/house/116676/documents/HHRG-118-JU08-20231213-SD004.pdf) than blue states.
-
-The [chronic use of prescription opioid drugs](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2685627) has also been [linked to](https://www.npr.org/2016/12/17/505965420/study-communities-most-affected-by-opioid-epidemic-also-voted-for-trump) socio-economic disadvantage, health behaviours and the lack of mental health and substance abuse services in red states.
-
-Much of this is due to differences in [social policies](https://onlinelibrary.wiley.com/doi/abs/10.1111/1468-0009.12482), such as Medicaid. All of the [ten states](https://stateline.org/2024/07/19/in-the-10-states-that-didnt-expand-medicaid-1-6m-cant-afford-health-insurance/) yet to take up the [Obamacare expansion](https://www.cbpp.org/research/health/medicaid-expansion-frequently-asked-questions-0) of Medicaid – which provides health insurance for poor people – are run by Republicans.
-
-The scale of welfare programs and firearm regulations in these states also play a role.
+Rip currents are powerful, fast-moving channels of water that flow away from the shore, posing a significant hazard to swimmers and surfers. They are responsible for a large percentage of ocean rescues and fatalities each year, making awareness and understanding crucial for coastal safety.
 
 <ScrollSection pinType='pin_clipped' className='my-12'>
   <ScrollBackground>
+  <Picture
+      src='https://images.theconversation.com/files/634718/original/file-20241127-15-5rghif.jpg'
+      loading='eager'
+      className='full_screen_media make_visible grid'
+      imgClassName=' aspect-[4/3]'
+      caption=''
+      source=''
+      sourceLink=''
+      alt='Zenith Beach near Newcastle, NSW'
+      focalPoint={{
+        mobile: { x: 0.5, y: 0.5 },
+        tablet: { x: 0.5, y: 0.5 },
+        tabletLandscape: { x: 0.5, y: 0.5 },
+        laptop: { x: 0.5, y: 0.5 },
+        desktop: { x: 0.5, y: 0.5 }
+      }}
+    />
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizOne />
+    </div>
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizTwo />
+    </div>
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizThree />
+    </div>
     <Picture
-      src='https://images.theconversation.com/files/627226/original/file-20241022-16-jazot7.jpg'
+      src='https://images.theconversation.com/files/634719/original/file-20241127-15-e3i137.jpg'
       loading='eager'
-      className='full_screen_media make_visible'
-      imgClassName='object-bottom-center'
-      caption='Testing the caption.'
-      source='The Conversation'
+      className='full_screen_media  grid'
+      imgClassName=' aspect-[4/3]'
+      caption=''
+      source=''
       sourceLink=''
-      alt=''
+      alt='Zenith Beach near Newcastle, NSW'
       focalPoint={{
         mobile: { x: 0.5, y: 0.5 },
         tablet: { x: 0.5, y: 0.5 },
@@ -91,80 +95,97 @@ The scale of welfare programs and firearm regulations in these states also play 
         desktop: { x: 0.5, y: 0.5 }
       }}
     />
-
-     <Picture
-      src='https://images.theconversation.com/files/627222/original/file-20241022-20-4x1vlk.jpg'
-      loading='eager'
-      className='full_screen_media'
-      imgClassName='object-bottom-center'
-      caption='Testing the caption.'
-      source='The Conversation'
-      sourceLink=''
-      alt=''
-      focalPoint={{
-        mobile: { x: 0.5, y: 0.5 },
-        tablet: { x: 0.5, y: 0.5 },
-        tabletLandscape: { x: 0.5, y: 0.5 },
-        laptop: { x: 0.5, y: 0.5 },
-        desktop: { x: 0.5, y: 0.5 }
-      }}
-    />
-
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizFour />
+    </div>
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizFive />
+    </div>
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizSix />
+    </div>
+    <div className='full_screen_media content-center bg-neutral-50'>
+      <QuizSeven />
+    </div>
   </ScrollBackground>
   <ScrollForeground>
-    <ScrollTextChapter className='mt-[20vh]' position='center'>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Mollitia cum nulla esse accusantium maiores laborum similique rerum quam ad qui.
+    <ScrollTextChapter className='mt-[20vh]' position='center' id={'draw1-step'}>
+      <div>
+        <span>Here is an aerial shot of Zenith Beach, near Newcastle, NSW.</span>
+      </div>
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
-      Perferendis porro eveniet placeat, rerum soluta blanditiis natus. Iure itaque odit a quibusdam quidem rerum
-      expedita ratione nesciunt dolorum omnis.
+    Can you circle the rips? <br/>
+    <span className='text-xs'>Just click or press and drag, keep scrolling to reveal the answer</span>
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center'>
+      <span id='draw1Answer'>Great job!</span> But you probably don't usually see a beach from the sky.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
-      Dolorum praesentium tempore quod eius alias, harum officiis provident at quia porro sequi? Quo quidem ipsam
-      corrupti numquam tempora laudantium!
+      This angle is a bit more realistic. <br/>
+      Can you circle the rip here?
     </ScrollTextChapter>
-
+    <ScrollTextChapter position='center'>
+    Ok, let's increase the difficulty...
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center'>
+      Can you spot a rip when you are actually in the water?
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center'>
+      Nice, you can spot a rip!<br/>
+      Let's take your knowledge to the next level.
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center' id={'draw4-step'}>
+      Here's another shot, at Lighthouse Beach in NSW.
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center' >
+      Drag the lifesaver flags to where you think you should enter the water.
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center'>
+      A beach might have many rips, or none at all.<br/>
+      Knowing where it's safe to swim is a good first step.
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center'>
+      Here we placed flourescent yellow dye into the water to visualise the current.
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center' id={'draw5-step'}>
+      Position the circles to where you think <br/>
+      the dye will move from now <br/>
+      to 30 seconds, 1 minute and 2 minutes.
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center' id={'draw5-step-2'}>
+      Rip currents can reach over two metres per second, which is as fast as an Olympic swimmer!
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center'>
+      Rips can pull you out to sea quickly, but also a long distance from shore.
+    </ScrollTextChapter>
+    <ScrollTextChapter  position='center'>
+      In this video we used purple dye to visualise the rip.
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center' id={'draw6-step'}>
+      Drag the picture of the Olympic pool and resize it to guess how many pool-lengths a rip can take you from shore.
+    </ScrollTextChapter>
+    <ScrollTextChapter  position='center' >
+    
+    </ScrollTextChapter>
+    <ScrollTextChapter step='step' position='center' >
+What about if you actually get caught in a rip? What should you do?
+    </ScrollTextChapter>
   </ScrollForeground>
 </ScrollSection>
 
-## Stress of a polarised political climate
+### To survive a rip current:
 
-Large numbers of Americans also [report](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0262022) that politics takes a significant toll on their health. This is caused by stress, loss of sleep, suicidal thoughts, an inability to stop thinking about politics and engagement with social media, for example, making posts they later regret.
+1. **Stay calm**: Avoid panic and conserve energy.
+2. **Don’t fight the current**: Swim parallel to the shore to escape the narrow flow.
+3. **Signal for help**: Raise an arm to alert lifeguards or bystanders.
+4. **Float if needed**: If unable to swim, float on your back to conserve energy until help arrives.
 
-A study from 2021 showed people who are [more ideologically extreme](https://www.sciencedirect.com/science/article/abs/pii/S0277953621003087?via%3Dihub) than their state’s average voter have worse physical and mental health.
+## Prevention and Awareness
 
-This political partisanship has been greatly aggravated by Donald Trump's arrival on the American political scene. The former Republican president has stoked social division and undermined trust in government, scientific expertise and public health organisations. [Disinformation](https://theconversation.com/disinformation-threatens-global-elections-heres-how-to-fight-back-223392) and [misinformation](https://theconversation.com/misinformation-is-more-than-just-bad-facts-how-and-why-people-spread-rumors-is-key-to-understanding-how-false-information-travels-and-takes-root-241748) continue to spread.
+Rip currents are most common during periods of high surf and can occur on any beach with breaking waves. Checking local weather forecasts, obeying beach warning flags, and swimming near lifeguards can significantly reduce the risk.
 
-All of this was on show in how the Trump administration [handled the COVID pandemic](https://pmc.ncbi.nlm.nih.gov/articles/PMC9115435/). Trump and other political leaders made the situation worse by linking health behaviours (such as mask-wearing and vaccination) to partisan identity.
-
-There was a clear impact on the rates of COVID infection and death. Red states implemented [fewer political decisions to mitigate COVID](https://www.sciencedirect.com/science/article/pii/S2590229623000199) than blue states. And after vaccines became available, residents of pro-Trump counties – less likely to be vaccinated – were [more than twice as likely](https://www.npr.org/2022/05/19/1098543849/pro-trump-counties-continue-to-suffer-far-higher-covid-death-tolls) to die from COVID as those in areas that supported Biden.
-
-It is also interesting to look at the role of education here. Low education levels were found to be a [strong and independent predictor](https://www.sciencedirect.com/science/article/pii/S0033350623002056) of whether you were more likely to die from COVID in the United States. This might be explained by the relationship between education and both collective culture and individual literacy.
-
-There is also a [strong link](https://www.pewresearch.org/politics/2024/04/09/changing-partisan-coalitions-in-a-politically-divided-nation/) between education and political affiliation.
-
-College graduates are more likely to vote Democratic, while those without a degree, especially white Americans, are more likely to vote Republican. This was not explored in the [new US study](https://www.nature.com/articles/s41591-024-03307-w) about health and polarisation.
-
-## Erosion of trust is dangerous for health
-
-Trust in government is another key factor not addressed in that research. But in Australia, this is top of mind following the release of the [COVID-19 Response Inquiry Report](https://www.pmc.gov.au/resources/covid-19-response-inquiry-report), which found the federal government must work to rebuild trust after lockdowns and other mandates.
-
-Greater trust in government is [linked](https://www.oecd.org/en/topics/sub-issues/trust-in-government.html) to increased political participation, social cohesion and collaboration in tackling societal challenges. In both [Europe](https://ejpr.onlinelibrary.wiley.com/doi/10.1111/1475-6765.12529) and the [United States](https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-024-19076-7), social cohesion and public trust in politicians and experts have been linked to lower excess mortality from COVID.
-
-<Image
-  src='https://images.theconversation.com/files/629429/original/file-20241101-15-bbe3n0.jpg'
-  align=''
-  className=''
-  loading='lazy'
-  alt='A man holds a sign that says "medical freedom is a human right" with two US flags.'
-  source='Ron Adar/Shutterstock'
-  caption='Political division in the United States intensified during the COVID pandemic.'
-/>
-
-In Australia, the [Australian Cohesion Index](https://scanloninstitute.org.au/sites/default/files/2023-11/2023%20Mapping%20Social%20Cohesion%20Report.pdf) shows the pandemic and cost-of-living crisis have eroded trust in government and affected health and well-being. At the same time, Australians [see the nation](https://www.edelman.com.au/australia-path-polarisation-edelman-trust-barometer-2023) as increasingly polarised.
-
-The presidential election this week will decide much about the future of the United States as a polarised and divided nation. In Australia, the lessons and recommendations from the COVID report provide an opportunity to avert the choices facing the United States.
+Educating the public about rip currents is essential to saving lives. Beaches should provide clear signage, and swimmers must prioritize vigilance and caution in the ocean environment.
 
 <AuthorSection>
   <Editorial>
@@ -210,3 +231,5 @@ The presidential election this week will decide much about the future of the Uni
   Images adapted from the [Melbourne Women's Walking Club archive](https://find.slv.vic.gov.au/permalink/61SLV_INST/1sev8ar/alma9929831233607636)
   </Acknowledgements>
 </AuthorSection>
+
+
