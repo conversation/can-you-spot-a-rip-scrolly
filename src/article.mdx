@@ -109,7 +109,7 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
     </div>
   </ScrollBackground>
   <ScrollForeground>
-    <ScrollTextChapter className='mt-[20vh]' position='center' id={'draw1-step'}>
+    <ScrollTextChapter className='mt-[20vh]' position='center' id={'quiz1-step'}>
       <div>
         <span>Here is an aerial shot of Zenith Beach, near Newcastle, NSW.</span>
       </div>
@@ -118,42 +118,42 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
     Can you circle the rips? <br/>
     <span className='text-xs'>Just click or press and drag, keep scrolling to reveal the answer</span>
     </ScrollTextChapter>
-    <ScrollTextChapter position='center'>
-      <span id='draw1Answer'>Great job!</span> But you probably don't usually see a beach from the sky.
+    <ScrollTextChapter position='center' id={'quizOneAnswerStep'} className='answerStep'>
+      <span id='quizOnAnswerSpan'>Great job!</span> But you probably don't usually see a beach from the sky.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
       This angle is a bit more realistic. <br/>
       Can you circle the rip here?
     </ScrollTextChapter>
-    <ScrollTextChapter position='center'>
+    <ScrollTextChapter position='center' id={'quizTwoAnswerStep'} className='answerStep'>
     Ok, let's increase the difficulty...
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
       Can you spot a rip when you are actually in the water?
     </ScrollTextChapter>
-    <ScrollTextChapter position='center'>
+    <ScrollTextChapter position='center' id={'quizThreeAnswerStep'} className='answerStep'>
       Nice, you can spot a rip!<br/>
       Let's take your knowledge to the next level.
     </ScrollTextChapter>
-    <ScrollTextChapter step='step' position='center' id={'draw4-step'}>
+    <ScrollTextChapter step='step' position='center' id={'quizFour-step'}>
       Here's another shot, at Lighthouse Beach in NSW.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' >
       Drag the lifesaver flags to where you think you should enter the water.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center'>
+    <ScrollTextChapter position='center' id={'quizFourAnswerStep'} className='answerStep'>
       A beach might have many rips, or none at all.<br/>
       Knowing where it's safe to swim is a good first step.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
       Here we placed flourescent yellow dye into the water to visualise the current.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center' id={'draw5-step'}>
+    <ScrollTextChapter position='center' id={'quizFive-step-2'}>
       Position the circles to where you think <br/>
       the dye will move from now <br/>
       to 30 seconds, 1 minute and 2 minutes.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center' id={'draw5-step-2'}>
+    <ScrollTextChapter position='center' id={'quizFiveAnswerStep'} className='answerStep'>
       Rip currents can reach over two metres per second, which is as fast as an Olympic swimmer!
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
@@ -162,14 +162,20 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
     <ScrollTextChapter  position='center'>
       In this video we used purple dye to visualise the rip.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center' id={'draw6-step'}>
+    <ScrollTextChapter position='center' id={'quizSix-step'}>
       Drag the picture of the Olympic pool and resize it to guess how many pool-lengths a rip can take you from shore.
     </ScrollTextChapter>
-    <ScrollTextChapter  position='center' >
-    
+    <ScrollTextChapter  position='center' id={'quizSixAnswerStep'} className='answerStep'>
+    This is a big rip, it stretches 5 olympic pools into the ocean – would you be able to swim back?
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' >
-What about if you actually get caught in a rip? What should you do?
+      What about if you actually get caught in a rip? What should you do?
+    </ScrollTextChapter>
+    <ScrollTextChapter id={'quizSeven-step'} position='center' >
+      In this scenario you swam into the start of a rip.<br/>
+      Choose what you should do next...
+    </ScrollTextChapter>
+     <ScrollTextChapter  position='center' >
     </ScrollTextChapter>
   </ScrollForeground>
 </ScrollSection>

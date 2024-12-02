@@ -15,7 +15,7 @@ export default function QuizSix() {
     <div className='relative font-base'>
       <div
         ref={parentRef}
-        className='canvas-container relative mx-auto aspect-[4/3] w-canvas-width max-w-full overflow-hidden rounded-md bg-[url(https://images.theconversation.com/files/634718/original/file-20241127-15-5rghif.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=800)] bg-cover bg-no-repeat shadow-lg'
+        className='canvas-container relative mx-auto aspect-[4/3] w-canvas-width max-w-full overflow-hidden rounded-md bg-[url(https://images.theconversation.com/files/635449/original/file-20241201-17-rrt4sw.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=800)] bg-cover bg-no-repeat shadow-lg'
         onDragOver={(e) => e.preventDefault()}
       >
         <Stage

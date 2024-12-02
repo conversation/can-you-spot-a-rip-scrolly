@@ -3,7 +3,7 @@ import { Stage, Layer, Image as KonvaImage } from 'react-konva'
 import useSize from '@react-hook/size'
 import { KonvaEventObject } from 'konva/lib/Node'
 import Konva from 'konva'
-import { standardSize } from '../../context/Atoms'
+import { quizReveal, standardSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
 
 interface ImageData {
@@ -20,6 +20,7 @@ export default function QuizFive() {
   const [width, height] = useSize(parentRef)
   const [shiftX, setShiftX] = useState<number>(0)
   const originalSize = useAtomValue(standardSize)
+  const revealAnswer = useAtomValue(quizReveal)
 
   const flagURL =
     'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50'
@@ -40,6 +41,8 @@ export default function QuizFive() {
       imgBlob: null // To store the loaded image
     }
   ])
+
+  const answerImgs: ImageData[] = []
 
   useEffect(() => {
     images.forEach((image) => {
@@ -124,6 +127,26 @@ export default function QuizFive() {
                   />
                 )
             )}
+            {revealAnswer.quiz4 &&
+              answerImgs.map(
+                (image) =>
+                  image.imgBlob && (
+                    <KonvaImage
+                      key={image.id}
+                      x={image.x}
+                      y={image.y}
+                      image={image.imgBlob}
+                      offsetX={image.imgBlob.width / 2 + (image.id === 0 ? shiftX : 0)}
+                      offsetY={image.imgBlob.height / 2 - (image.id === 1 ? 20 : 0)}
+                      scaleX={calculateScale(image.y)}
+                      scaleY={calculateScale(image.y)}
+                      onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
+                      onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
+                      draggable
+                      onDragMove={handleDragMove}
+                    />
+                  )
+              )}
           </Layer>
         </Stage>
       </div>

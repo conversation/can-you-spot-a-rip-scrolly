@@ -144,14 +144,9 @@ export default function TitleSection({
               AEDT
             </time>
           </div>
-        </div>
-        <div id='titleImg' className='not-prose col-start-1 row-start-1 h-full w-full overflow-clip'>
-          {children}
-        </div>
-        <div className='absolute bottom-5 left-1/2 -translate-x-1/2'>
-          <div className='animate-bounce'>
+          <div className='mt-4 animate-bounce'>
             <svg
-              className='h-6 w-6 text-neutral-900'
+              className='mx-auto h-6 w-6 text-neutral-900'
               fill='none'
               strokeLinecap='round'
               strokeLinejoin='round'
@@ -162,6 +157,9 @@ export default function TitleSection({
               <path d='M19 14l-7 7m0 0l-7-7m7 7V3'></path>
             </svg>
           </div>
+        </div>
+        <div id='titleImg' className='not-prose col-start-1 row-start-1 h-full w-full overflow-clip'>
+          {children}
         </div>
       </div>
     </section>

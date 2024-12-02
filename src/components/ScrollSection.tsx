@@ -5,6 +5,8 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { ARTICLEWIDTH } from '../util/constants'
 import useSize from '@react-hook/size'
+import { useSetAtom } from 'jotai'
+import { quizReveal } from '../context/Atoms'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,6 +23,7 @@ export function ScrollSection({
 }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [width, height] = useSize(sectionRef)
+  const setRevealAnswers = useSetAtom(quizReveal)
 
   useGSAP(
     () => {
@@ -56,16 +59,16 @@ export function ScrollSection({
       if (!section) return
 
       const backgroundElements = section.querySelectorAll('.pinned_background_wrapper > *')
-      const firstDrawPar = section.querySelector('#draw1-step')
+      const firstQuizPar = section.querySelector('#quiz1-step')
       const canvas = backgroundElements[1].querySelector('.canvas-container')
       const img = backgroundElements[0].querySelector('img')
 
-      if (!firstDrawPar || !img || !canvas) return
+      if (!firstQuizPar || !img || !canvas) return
 
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: firstDrawPar,
+            trigger: firstQuizPar,
             start: '50% 40%',
             end: '50% top',
             scrub: true
@@ -82,16 +85,16 @@ export function ScrollSection({
       if (!section) return
 
       const backgroundElements = section.querySelectorAll('.pinned_background_wrapper > *')
-      const firstDrawPar = section.querySelector('#draw4-step')
+      const quizPar = section.querySelector('#quizFour-step')
       const canvas = backgroundElements[1].querySelector('.canvas-container')
       const img = backgroundElements[4].querySelector('img')
 
-      if (!firstDrawPar || !img || !canvas) return
+      if (!quizPar || !img || !canvas) return
 
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: firstDrawPar,
+            trigger: quizPar,
             start: '50% 40%',
             end: '50% top',
             scrub: true
@@ -107,42 +110,21 @@ export function ScrollSection({
       const section = sectionRef.current
       if (!section) return
 
-      const drawPar = section.querySelector('#draw5-step')
-      const drawPar2 = section.querySelector('#draw5-step-2')
+      const quizPar = section.querySelector('#quizFive-step-2')
 
       const controls: NodeList | null = section.querySelectorAll('.draw5Controls')
-      const video: HTMLVideoElement | null = section.querySelector('#draw5video')
-      const playBtn: HTMLButtonElement | null = section.querySelector('#draw5PlayBtn')
 
-      if (!drawPar || !drawPar2 || !controls || !playBtn || !video) return
+      if (!quizPar || !controls) return
 
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: drawPar,
+            trigger: quizPar,
             start: 'center 90%',
             scrub: true
           }
         })
         .to(controls, { opacity: 100 })
-
-      ScrollTrigger.create({
-        trigger: drawPar2,
-        start: 'center 75%',
-        onEnter: () => {
-          if (playBtn.textContent === 'Play video') {
-            video.play()
-            playBtn.textContent = 'Restart'
-          }
-        },
-        onLeaveBack: () => {
-          if (playBtn.textContent === 'Restart' || playBtn.textContent === 'Replay') {
-            video.pause()
-            video.currentTime = 0
-            playBtn.textContent = 'Play video'
-          }
-        }
-      })
     },
     { scope: sectionRef }
   )
@@ -152,17 +134,16 @@ export function ScrollSection({
       const section = sectionRef.current
       if (!section) return
 
-      const drawPar = section.querySelector('#draw6-step')
+      const revealQuizStep = section.querySelector('#quizSix-step')
       const canvas = section.querySelector('#draw6Canvas')
-
       const controls = section.querySelector('#draw6Controls')
 
-      if (!drawPar || !controls || !canvas) return
+      if (!revealQuizStep || !controls || !canvas) return
 
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: drawPar,
+            trigger: revealQuizStep,
             start: 'center 90%',
             scrub: true
           }
@@ -171,7 +152,7 @@ export function ScrollSection({
         .to(canvas, { opacity: 100 }, '<')
 
       ScrollTrigger.create({
-        trigger: drawPar,
+        trigger: revealQuizStep,
         start: 'center 75%',
         onEnter: () => {
           gsap.set(canvas, { opacity: 100 })
@@ -181,6 +162,34 @@ export function ScrollSection({
           gsap.set(canvas, { opacity: 0 })
           gsap.set(controls, { opacity: 0 })
         }
+      })
+    },
+    { scope: sectionRef }
+  )
+
+  // Reveal answers code
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const answerSteps = section.querySelectorAll('.answerStep')
+
+      if (!answerSteps.length) return
+
+      answerSteps.forEach((answerStep, index) => {
+        ScrollTrigger.create({
+          markers: true,
+          trigger: answerStep,
+          start: 'center 90%',
+          end: 'center 90%',
+          onEnter: () => {
+            setRevealAnswers((prev) => ({ ...prev, [`quiz${index + 1}`]: true }))
+          },
+          onLeaveBack: () => {
+            setRevealAnswers((prev) => ({ ...prev, [`quiz${index + 1}`]: false }))
+          }
+        })
       })
     },
     { scope: sectionRef }

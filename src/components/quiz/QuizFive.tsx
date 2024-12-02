@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react'
-import { Stage, Layer, Arrow, Circle } from 'react-konva'
+import { Stage, Layer, Arrow, Circle, Text, Group } from 'react-konva'
 import useSize from '@react-hook/size'
 import Konva from 'konva'
-import { videoSize } from '../../context/Atoms'
+import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
 
 interface Target {
@@ -10,6 +10,8 @@ interface Target {
   x: number
   y: number
   colour: string
+  time: string
+  textColour: string
 }
 
 interface Connector {
@@ -18,37 +20,39 @@ interface Connector {
   to: string
 }
 
+const colours = [
+  '#3d0400',
+  '#660700',
+  '#990a00',
+  '#b81f14',
+  '#d8352a',
+  '#e37169',
+  '#e9928c',
+  '#ecc3C0',
+  '#f1dddc',
+  '#f9f1f0'
+]
+const numberOfCircles: number = 4
+
 export default function QuizFive() {
   const parentRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [width, height] = useSize(parentRef)
   const originalSize = useAtomValue(videoSize)
-
   const [targets, setTargets] = useState<Target[]>([])
   const [connectors, setConnectors] = useState<Connector[]>([])
+  const revealAnswer = useAtomValue(quizReveal)
 
   useEffect(() => {
-    const numberOfCircles = 4
-    const colours = [
-      '#3d0400',
-      '#660700',
-      '#990a00',
-      '#b81f14',
-      '#d8352a',
-      '#e37169',
-      '#e9928c',
-      '#ecc3C0',
-      '#f1dddc',
-      '#f9f1f0'
-    ]
-
     const generateTargets = () => {
       return Array.from({ length: numberOfCircles }, (_, i) => ({
         id: 'target-' + i,
         x: width * 0.1,
         y: (height / (numberOfCircles + 1)) * (numberOfCircles - i),
-        colour: colours[i * 2]
+        colour: colours[i * 2],
+        time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
+        textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
       }))
     }
 
@@ -60,16 +64,23 @@ export default function QuizFive() {
       }))
     }
 
-    const newTargets = generateTargets()
-    setTargets(newTargets)
+    setTargets(generateTargets())
     setConnectors(generateConnectors())
   }, [width, height])
+
+  useEffect(() => {
+    if (revealAnswer.quiz5) {
+      playVideo()
+    } else {
+      resetVideo()
+    }
+  }, [revealAnswer.quiz5])
 
   const getConnectorPoints = (from: Target, to: Target) => {
     const dx = to.x - from.x
     const dy = to.y - from.y
     const angle = Math.atan2(-dy, dx)
-    const radius = 50
+    const radius = width / 40
 
     return [
       from.x - radius * Math.cos(angle + Math.PI),
@@ -84,25 +95,42 @@ export default function QuizFive() {
   }
 
   const handleVideoPlay = () => {
+    const btn = document.querySelector('#draw5PlayBtn')
+
+    if (!btn) return
+
+    if (btn.textContent === 'Restart' || btn.textContent === 'Replay') {
+      resetVideo()
+    } else {
+      playVideo()
+    }
+  }
+
+  const playVideo = () => {
     if (!videoRef.current) return
 
     const btn = document.querySelector('#draw5PlayBtn')
 
     if (!btn) return
 
-    if (btn.textContent === 'Restart' || btn.textContent === 'Replay') {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-      btn.textContent = 'Play video'
-    } else {
-      videoRef.current.play()
-      btn!.textContent = 'Restart'
-    }
+    videoRef.current.play()
+    btn!.textContent = 'Restart'
+  }
+
+  const resetVideo = () => {
+    if (!videoRef.current) return
+
+    const btn = document.querySelector('#draw5PlayBtn')
+
+    if (!btn) return
+
+    videoRef.current.pause()
+    videoRef.current.currentTime = 0
+    btn.textContent = 'Play video'
   }
 
   const handleVideoEnd = () => {
-    const btn = document.querySelector('#draw5PlayBtn')
-    btn!.textContent = 'Replay'
+    resetVideo()
   }
 
   return (
@@ -130,20 +158,38 @@ export default function QuizFive() {
               return <Arrow key={connector.id} strokeWidth={4} points={points} stroke='#4b4b4e' fill='#4b4b4e' />
             })}
             {targets.map((target) => (
-              <Circle
+              <Group
                 key={target.id}
-                id={target.id}
                 x={target.x}
                 y={target.y}
-                fill={target.colour}
-                radius={20}
-                shadowBlur={10}
-                shadowColor={'#93939f'}
-                onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
-                onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
                 draggable
                 onDragMove={(e) => handleDragMove(target.id, e.target.x(), e.target.y())}
-              />
+                onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
+                onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
+              >
+                <Circle
+                  id={target.id}
+                  x={0}
+                  y={0}
+                  fill={target.colour}
+                  radius={width / 60}
+                  shadowBlur={10}
+                  shadowColor={'#93939f'}
+                />
+                <Text
+                  text={target.time}
+                  fontSize={15}
+                  fill={target.textColour}
+                  fontStyle='bold'
+                  width={(width / 60) * 2}
+                  height={(width / 60) * 2}
+                  align='center'
+                  verticalAlign='middle'
+                  lineHeight={10}
+                  x={(width / 60) * -1}
+                  y={(width / 60) * -1 + 2}
+                />
+              </Group>
             ))}
           </Layer>
         </Stage>

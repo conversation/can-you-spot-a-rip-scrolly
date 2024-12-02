@@ -5,7 +5,7 @@ import useSize from '@react-hook/size'
 import useImage from 'use-image'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { ReactRef } from '@gsap/react'
-import { videoSize } from '../../context/Atoms'
+import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
 
 // Types
@@ -29,11 +29,6 @@ interface URLImageProps {
 
 const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URLImageProps) => {
   const shapeRef = useRef<Konva.Image | null>(null)
-  // const [transforms, setTransforms] = useState<{ width: number; height: number; rotation: number }>({
-  //   width: 0,
-  //   height: 0,
-  //   rotation: 0
-  // })
   const [scale, setScale] = useState<number>(1)
   const trRef = useRef<Konva.Transformer | null>(null)
 
@@ -193,6 +188,8 @@ export default function QuizSix() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const [images, setImages] = useState<ImageType[]>([])
+  const revealAnswer = useAtomValue(quizReveal)
+  const answerImgs: ImageType[] = []
 
   const HQImgURL =
     'https://images.theconversation.com/files/635152/original/file-20241128-17-4yc7x1.png?ixlib=rb-4.1.0&q=45&auto=format&h=200'
@@ -275,6 +272,28 @@ export default function QuizSix() {
                     imgs[i] = { ...newAttrs }
                     setImages(imgs)
                   }}
+                />
+              ))}
+            {img &&
+              stageRef &&
+              revealAnswer.quiz4 &&
+              answerImgs.map((image, i) => (
+                <KonvaImage
+                  key={i}
+                  image={img}
+                  draggable
+                  shadowBlur={20}
+                  shadowOffset={{
+                    x: 5,
+                    y: 5
+                  }}
+                  rotation={image.rotation}
+                  width={image.width}
+                  height={image.height}
+                  x={image.x}
+                  y={image.y}
+                  offsetX={image.width / 2}
+                  offsetY={image.height / 2}
                 />
               ))}
           </Layer>
