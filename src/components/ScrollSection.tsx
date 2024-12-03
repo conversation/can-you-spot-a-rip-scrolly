@@ -203,7 +203,7 @@ export function ScrollSection({
 
       answerSteps.forEach((answerStep, index) => {
         ScrollTrigger.create({
-          // markers: true,
+          markers: true,
           trigger: answerStep,
           start: 'center 30%',
           end: 'center 30%',
