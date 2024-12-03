@@ -167,6 +167,30 @@ export function ScrollSection({
     { scope: sectionRef }
   )
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const revealQuizStep = section.querySelector('#quizSeven-step')
+      const questions = section.querySelector('.questions')
+
+      if (!revealQuizStep || !questions) return
+
+      ScrollTrigger.create({
+        trigger: revealQuizStep,
+        start: 'center 75%',
+        onEnter: () => {
+          gsap.set(questions, { opacity: 100 })
+        },
+        onLeaveBack: () => {
+          gsap.set(questions, { opacity: 0 })
+        }
+      })
+    },
+    { scope: sectionRef }
+  )
+
   // Reveal answers code
   useGSAP(
     () => {
@@ -179,7 +203,7 @@ export function ScrollSection({
 
       answerSteps.forEach((answerStep, index) => {
         ScrollTrigger.create({
-          markers: true,
+          // markers: true,
           trigger: answerStep,
           start: 'center 90%',
           end: 'center 90%',

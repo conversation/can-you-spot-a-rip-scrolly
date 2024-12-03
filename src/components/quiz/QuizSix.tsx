@@ -1,6 +1,6 @@
-import { useRef, useState, DragEvent, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Konva from 'konva'
-import { Stage, Layer, Image as KonvaImage, Transformer } from 'react-konva'
+import { Stage, Layer, Image as KonvaImage, Transformer, Text, Group } from 'react-konva'
 import useSize from '@react-hook/size'
 import useImage from 'use-image'
 import { KonvaEventObject } from 'konva/lib/Node'
@@ -28,27 +28,32 @@ interface URLImageProps {
 }
 
 const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URLImageProps) => {
-  const shapeRef = useRef<Konva.Image | null>(null)
-  const [scale, setScale] = useState<number>(1)
+  const groupRef = useRef<Konva.Group | null>(null)
+  const imageRef = useRef<Konva.Image | null>(null)
   const trRef = useRef<Konva.Transformer | null>(null)
-
+  const [scale, setScale] = useState<number>(1)
   let tween: Konva.Tween | null = null
 
   useEffect(() => {
-    // Ensure the references are not null before accessing their methods
-    if (isSelected && trRef.current && shapeRef.current) {
-      // Attach transformer manually
-      trRef.current.nodes([shapeRef.current])
+    if (isSelected && trRef.current && groupRef.current) {
+      // Attach transformer to the Group node
+      trRef.current.nodes([groupRef.current])
       trRef.current.getLayer()?.batchDraw()
     }
   }, [isSelected])
 
-  if (!imgBlob) return
+  if (!imgBlob) return null
 
   const imgWidth = imgBlob.width
   const imgHeight = imgBlob.height
 
-  const handleDragStart = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
+  const handleDragStart = (e: Konva.KonvaEventObject<MouseEvent | TouchEvent>) => {
+    const image = imageRef.current
+
+    if (!e.target || !image) return
+
+    stage.current!.container().style.cursor = 'grabbing'
+
     const shape = e.target
 
     if (!shape) return
@@ -60,84 +65,101 @@ const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URL
     setScale(shape.scaleX())
 
     shape.setAttrs({
-      // shadowBlur: 10,
-      shadowOffset: {
-        x: 12,
-        y: 12
-      },
       scale: {
         x: scale * 1.1,
         y: scale * 1.1
       }
     })
+
+    image.setAttrs({
+      shadowBlur: 10,
+      shadowOffset: {
+        x: 12,
+        y: 12
+      }
+    })
+  }
+
+  const handleDragEnd = (e: Konva.KonvaEventObject<MouseEvent | TouchEvent>) => {
+    onChange({
+      ...image,
+      x: e.target.x(),
+      y: e.target.y()
+    })
+    stage.current!.container().style.cursor = 'default'
+
+    tween = new Konva.Tween({
+      node: e.target!,
+      duration: 0.2,
+      easing: Konva.Easings.ElasticEaseOut,
+      scaleX: scale,
+      scaleY: scale,
+      shadowOffsetX: 5,
+      shadowOffsetY: 5
+    })
+
+    tween.play()
+  }
+
+  const handleTransformEnd = () => {
+    const node = groupRef.current
+    if (!node) return
+
+    const scaleX = node.scaleX()
+    const scaleY = node.scaleY()
+
+    setScale(scaleX)
+
+    onChange({
+      ...image,
+      x: node.x(),
+      y: node.y(),
+      rotation: node.rotation(),
+
+      // set minimal value
+      width: Math.max(5, node.width() * scaleX),
+      height: Math.max(node.height() * scaleY)
+    })
   }
 
   return (
     <>
-      <KonvaImage
-        ref={shapeRef}
-        image={imgBlob}
+      <Group
+        ref={groupRef}
         draggable
-        shadowBlur={20}
-        shadowOffset={{
-          x: 5,
-          y: 5
-        }}
         rotation={image.rotation}
-        width={imgWidth}
-        height={imgHeight}
         x={image.x}
         y={image.y}
         offsetX={imgWidth / 2}
         offsetY={imgHeight / 2}
         onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onTransformEnd={handleTransformEnd}
+        onClick={onSelect}
+        onTap={onSelect}
         onMouseEnter={() => (stage.current!.container().style.cursor = 'pointer')}
         onMouseLeave={() => (stage.current!.container().style.cursor = 'default')}
-        onClick={onSelect}
-        onDragEnd={(e) => {
-          onChange({
-            ...image,
-            x: e.target.x(),
-            y: e.target.y()
-          })
-
-          const shape = e.target
-
-          tween = new Konva.Tween({
-            node: shape,
-            duration: 0.2,
-            easing: Konva.Easings.ElasticEaseOut,
-            scaleX: scale,
-            scaleY: scale,
-            shadowOffsetX: 5,
-            shadowOffsetY: 5
-          })
-
-          tween.play()
-        }}
-        onTransformEnd={() => {
-          const node = shapeRef.current
-
-          if (!node) return
-
-          const scaleX = node.scaleX()
-          const scaleY = node.scaleY()
-
-          setScale(scaleX)
-
-          onChange({
-            ...image,
-            x: node.x(),
-            y: node.y(),
-            rotation: node.rotation(),
-
-            // set minimal value
-            width: Math.max(5, node.width() * scaleX),
-            height: Math.max(node.height() * scaleY)
-          })
-        }}
-      />
-
+      >
+        <KonvaImage
+          ref={imageRef}
+          shadowBlur={20}
+          shadowOpacity={0.5}
+          shadowOffset={{
+            x: 5,
+            y: 5
+          }}
+          image={imgBlob}
+        />
+        <Text
+          text={'Click to resize'}
+          fontSize={12}
+          fill={'white'}
+          fontStyle='bold'
+          offsetY={-20}
+          width={imgWidth}
+          align='center'
+        />
+      </Group>
       {isSelected && (
         <Transformer
           ref={trRef}
@@ -193,8 +215,6 @@ export default function QuizSix() {
 
   const HQImgURL =
     'https://images.theconversation.com/files/635152/original/file-20241128-17-4yc7x1.png?ixlib=rb-4.1.0&q=45&auto=format&h=200'
-  // const LQImgURL =
-  //   'https://images.theconversation.com/files/635152/original/file-20241128-17-4yc7x1.png?ixlib=rb-4.1.0&q=45&auto=format&h=100'
 
   const [img] = useImage(HQImgURL)
   const [width, height] = useSize(parentRef)
@@ -220,7 +240,7 @@ export default function QuizSix() {
       <div
         ref={parentRef}
         className='canvas-container relative mx-auto aspect-[16/9] w-canvas-width-video max-w-full overflow-hidden rounded-md'
-        onDrop={(e: DragEvent<HTMLDivElement>) => {
+        onDrop={(e: React.DragEvent<HTMLDivElement>) => {
           e.preventDefault()
 
           if (!stageRef.current) return
@@ -254,6 +274,21 @@ export default function QuizSix() {
           onTouchStart={checkDeselect}
         >
           <Layer>
+            {img && (
+              <>
+                <KonvaImage
+                  x={width * 0.02}
+                  y={height / 2}
+                  offsetY={img.height / 2}
+                  image={img}
+                  // onDragStart={(e) => console.log('dragStart', e)}
+                  // onPointerMove={(e) => console.log('pointerMove', e)}
+                  // onPointerDown={(e) => console.log('pointerDown', e)}
+                />
+                <KonvaImage x={width * 0.02} y={height / 2} offsetY={img.height / 2} draggable image={img} />
+              </>
+            )}
+
             {img &&
               stageRef &&
               images.map((image, i) => (
@@ -317,16 +352,16 @@ export default function QuizSix() {
           >
             Clear
           </button>
-          <p className='mt-4 text-xs font-bold text-neutral-100'>
+          {/* <p className='mt-4 text-xs font-bold text-neutral-100'>
             Click on images <br />
             to resize
-          </p>
-          <img
+          </p> */}
+          {/* <img
             src={HQImgURL}
             alt='Olympic pool'
             draggable
-            className='!mx-0 mt-2 !h-auto !w-24 cursor-pointer object-cover shadow-lg transition-all duration-200 ease-in-out'
-          />
+            className='not_full_screen !mx-0 mt-2 h-auto w-[40%] cursor-pointer object-cover shadow-lg transition-all duration-200 ease-in-out md:w-24'
+          /> */}
         </div>
       </div>
     </div>

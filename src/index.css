@@ -124,7 +124,7 @@
     @apply pointer-events-none absolute left-0 top-0 h-full w-full content-center opacity-0 transition-opacity duration-700 ease-in-out;
   }
 
-  .full_screen_media img {
+  .full_screen_media img:not(.not_full_screen) {
     @apply mx-auto h-screen w-screen object-cover;
   }
 

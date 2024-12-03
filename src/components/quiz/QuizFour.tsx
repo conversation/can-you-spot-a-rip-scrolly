@@ -18,7 +18,6 @@ export default function QuizFive() {
   const parentRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const [width, height] = useSize(parentRef)
-  const [shiftX, setShiftX] = useState<number>(0)
   const originalSize = useAtomValue(standardSize)
   const revealAnswer = useAtomValue(quizReveal)
 
@@ -31,18 +30,78 @@ export default function QuizFive() {
       x: originalSize.width / 7,
       y: originalSize.height / 1.25,
       src: flagURL,
-      imgBlob: null // To store the loaded image
+      imgBlob: null
     },
     {
       id: 1,
-      x: originalSize.width / 7 - 20,
+      x: originalSize.width / 7,
       y: originalSize.height / 1.25,
       src: flagURL,
-      imgBlob: null // To store the loaded image
+      imgBlob: null
     }
   ])
 
-  const answerImgs: ImageData[] = []
+  const [answerImages, setAnswerImages] = useState<ImageData[]>([
+    {
+      id: 0,
+      x: 1025.4285714285713,
+      y: 355,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+    {
+      id: 1,
+      x: 1025.4285714285713,
+      y: 355,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+
+    {
+      id: 0,
+      x: 1069.4285714285713,
+      y: 170,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+    {
+      id: 1,
+      x: 1069.4285714285713,
+      y: 170,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+
+    {
+      id: 0,
+      x: 987.4285714285713,
+      y: 152,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+    {
+      id: 1,
+      x: 987.4285714285713,
+      y: 152,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+
+    {
+      id: 0,
+      x: 1097.4285714285713,
+      y: 220,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    },
+    {
+      id: 1,
+      x: 1097.4285714285713,
+      y: 220,
+      src: 'https://images.theconversation.com/files/635148/original/file-20241128-17-ek5h29.png?ixlib=rb-4.1.0&q=25&auto=format&h=90&w=50',
+      imgBlob: null
+    }
+  ])
 
   useEffect(() => {
     images.forEach((image) => {
@@ -56,14 +115,25 @@ export default function QuizFive() {
         }
       }
     })
-  }, [images])
+    answerImages.forEach((image) => {
+      if (!image.imgBlob) {
+        const img = new window.Image()
+        img.src = image.src
+        img.onload = () => {
+          setAnswerImages((prevImages) =>
+            prevImages.map((imgData) => (imgData.id === image.id ? { ...imgData, imgBlob: img } : imgData))
+          )
+        }
+      }
+    })
+  }, [images, answerImages])
 
   const handleDragMove = (e: KonvaEventObject<DragEvent>) => {
     e.evt.preventDefault()
     const y = e.target.y()
     const x = e.target.x()
 
-    setShiftX(calculateXShift(y))
+    // setShiftX(calculateXShift(y))
 
     setImages((prevImages) =>
       prevImages.map((image) => {
@@ -116,34 +186,31 @@ export default function QuizFive() {
                     x={image.x}
                     y={image.y}
                     image={image.imgBlob}
-                    offsetX={image.imgBlob.width / 2 + (image.id === 0 ? shiftX : 0)}
+                    offsetX={image.imgBlob.width / 2 + (image.id === 0 ? calculateXShift(image.y) : 0)}
                     offsetY={image.imgBlob.height / 2 - (image.id === 1 ? 20 : 0)}
                     scaleX={calculateScale(image.y)}
                     scaleY={calculateScale(image.y)}
                     onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
                     onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
                     draggable
+                    onDragEnd={() => console.log(images)}
                     onDragMove={handleDragMove}
                   />
                 )
             )}
             {revealAnswer.quiz4 &&
-              answerImgs.map(
-                (image) =>
+              answerImages.map(
+                (image, i) =>
                   image.imgBlob && (
                     <KonvaImage
-                      key={image.id}
+                      key={i}
                       x={image.x}
                       y={image.y}
                       image={image.imgBlob}
-                      offsetX={image.imgBlob.width / 2 + (image.id === 0 ? shiftX : 0)}
+                      offsetX={image.imgBlob.width / 2 + (image.id === 0 ? calculateXShift(image.y) : 0)}
                       offsetY={image.imgBlob.height / 2 - (image.id === 1 ? 20 : 0)}
                       scaleX={calculateScale(image.y)}
                       scaleY={calculateScale(image.y)}
-                      onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
-                      onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
-                      draggable
-                      onDragMove={handleDragMove}
                     />
                   )
               )}

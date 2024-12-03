@@ -6,7 +6,7 @@ import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
 
 interface Target {
-  id: string
+  id: number
   x: number
   y: number
   colour: string
@@ -15,23 +15,36 @@ interface Target {
 }
 
 interface Connector {
-  id: string
-  from: string
-  to: string
+  id: number
+  from: number
+  to: number
 }
 
+// const colours = [
+//   '#3d0400',
+//   '#660700',
+//   '#990a00',
+//   '#b81f14',
+//   '#d8352a',
+//   '#e37169',
+//   '#e9928c',
+//   '#ecc3C0',
+//   '#f1dddc',
+//   '#f9f1f0'
+// ]
 const colours = [
-  '#3d0400',
-  '#660700',
-  '#990a00',
-  '#b81f14',
-  '#d8352a',
-  '#e37169',
-  '#e9928c',
-  '#ecc3C0',
+  '#f9f1f0',
   '#f1dddc',
-  '#f9f1f0'
+  '#ecc3C0',
+  '#e9928c',
+  '#e37169',
+  '#d8352a',
+  '#b81f14',
+  '#990a00',
+  '#660700',
+  '#3d0400'
 ]
+
 const numberOfCircles: number = 4
 
 export default function QuizFive() {
@@ -45,25 +58,6 @@ export default function QuizFive() {
   const revealAnswer = useAtomValue(quizReveal)
 
   useEffect(() => {
-    const generateTargets = () => {
-      return Array.from({ length: numberOfCircles }, (_, i) => ({
-        id: 'target-' + i,
-        x: width * 0.1,
-        y: (height / (numberOfCircles + 1)) * (numberOfCircles - i),
-        colour: colours[i * 2],
-        time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
-        textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
-      }))
-    }
-
-    const generateConnectors = () => {
-      return Array.from({ length: numberOfCircles - 1 }, (_, i) => ({
-        id: `connector-${i}`,
-        from: `target-${i}`,
-        to: `target-${i + 1}`
-      }))
-    }
-
     setTargets(generateTargets())
     setConnectors(generateConnectors())
   }, [width, height])
@@ -75,6 +69,25 @@ export default function QuizFive() {
       resetVideo()
     }
   }, [revealAnswer.quiz5])
+
+  const generateTargets = () => {
+    return Array.from({ length: numberOfCircles }, (_, i) => ({
+      id: i,
+      x: (width / (numberOfCircles + 1)) * (i + 1),
+      y: height * 0.9,
+      colour: colours[i * 2],
+      time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
+      textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
+    }))
+  }
+
+  const generateConnectors = () => {
+    return Array.from({ length: numberOfCircles - 1 }, (_, i) => ({
+      id: i,
+      from: i,
+      to: i + 1
+    }))
+  }
 
   const getConnectorPoints = (from: Target, to: Target) => {
     const dx = to.x - from.x
@@ -90,7 +103,7 @@ export default function QuizFive() {
     ]
   }
 
-  const handleDragMove = (id: string, x: number, y: number) => {
+  const handleDragMove = (id: number, x: number, y: number) => {
     setTargets((prev) => prev.map((target) => (target.id === id ? { ...target, x, y } : target)))
   }
 
@@ -133,6 +146,11 @@ export default function QuizFive() {
     resetVideo()
   }
 
+  const resetGame = () => {
+    setTargets(generateTargets())
+    setConnectors(generateConnectors())
+  }
+
   return (
     <div className='font-base'>
       <div
@@ -167,26 +185,18 @@ export default function QuizFive() {
                 onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
                 onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
               >
-                <Circle
-                  id={target.id}
-                  x={0}
-                  y={0}
-                  fill={target.colour}
-                  radius={width / 60}
-                  shadowBlur={10}
-                  shadowColor={'#93939f'}
-                />
+                <Circle x={0} y={0} fill={target.colour} radius={width / 60} shadowBlur={10} shadowColor={'#93939f'} />
                 <Text
                   text={target.time}
-                  fontSize={15}
+                  fontSize={width / 80}
                   fill={target.textColour}
                   fontStyle='bold'
-                  width={(width / 60) * 2}
+                  width={(width / 50) * 2}
                   height={(width / 60) * 2}
                   align='center'
                   verticalAlign='middle'
                   lineHeight={10}
-                  x={(width / 60) * -1}
+                  x={(width / 50) * -1}
                   y={(width / 60) * -1 + 2}
                 />
               </Group>
@@ -202,13 +212,19 @@ export default function QuizFive() {
           onEnded={handleVideoEnd}
           className='pointer-events-none h-full w-full object-cover'
         ></video>
-        <div className='draw5Controls absolute left-2 top-2 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'>
+        <div className='draw5Controls absolute left-2 top-2 flex gap-4 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'>
           <button
             id={'draw5PlayBtn'}
             onClick={handleVideoPlay}
             className='cursor-pointer bg-neutral-900/50 p-2 text-white transition-all duration-150 ease-in-out hover:shadow-lg active:scale-95'
           >
             Play video
+          </button>
+          <button
+            onClick={resetGame}
+            className='cursor-pointer bg-neutral-900/50 p-2 text-white transition-all duration-150 ease-in-out hover:shadow-lg active:scale-95'
+          >
+            Reset
           </button>
         </div>
       </div>

@@ -109,14 +109,12 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
     </div>
   </ScrollBackground>
   <ScrollForeground>
-    <ScrollTextChapter className='mt-[20vh]' position='center' id={'quiz1-step'}>
-      <div>
-        <span>Here is an aerial shot of Zenith Beach, near Newcastle, NSW.</span>
-      </div>
+    <ScrollTextChapter className='mt-[20vh] pointer-events-auto' position='center' id={'quiz1-step'}>
+      Here is an aerial shot of [Zenith Beach](https://www.nationalparks.nsw.gov.au/things-to-do/beach/zenith-beach), near Newcastle, NSW.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
     Can you circle the rips? <br/>
-    <span className='text-xs'>Just click or press and drag, keep scrolling to reveal the answer</span>
+    <span className='text-xs bg-neutral-400 py-1 px-2 rounded-md shadow-md'>Just click or press & drag, keep scrolling to reveal the answer</span>
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizOneAnswerStep'} className='answerStep'>
       <span id='quizOnAnswerSpan'>Great job!</span> But you probably don't usually see a beach from the sky.
@@ -129,7 +127,7 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
     Ok, let's increase the difficulty...
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
-      Can you spot a rip when you are actually in the water?
+      Can you spot a rip when you are actually <span className="font-bold underline [font-size:larger]">in</span> the water?
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizThreeAnswerStep'} className='answerStep'>
       Nice, you can spot a rip!<br/>
@@ -146,36 +144,31 @@ Rip currents are powerful, fast-moving channels of water that flow away from the
       Knowing where it's safe to swim is a good first step.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
-      Here we placed flourescent yellow dye into the water to visualise the current.
+      Here we placed flourescent <span className="inline-block w-max bg-[#d2f536] py-1 px-2 rounded-md text-black">yellow dye</span> into the water to visualise the current.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center' id={'quizFive-step-2'}>
+    <ScrollTextChapter position='center' id={'quizFive-step-2'} >
       Position the circles to where you think <br/>
-      the dye will move from now <br/>
-      to 30 seconds, 1 minute and 2 minutes.
+      the dye will move from <span className="inline-block w-max bg-red-50 text-red-900 py-1 px-2 rounded-md my-1">now</span> <br/>
+      to <span className="my-1 inline-block w-max bg-red-200 py-1 px-2 rounded-md text-red-900">30 seconds</span>, <span className="my-1 inline-block w-max bg-red-400 py-1 px-2 rounded-md">1 minute</span> and <span className="my-1 inline-block w-max bg-red-600 py-1 px-2 rounded-md lead">2 minutes</span>.
     </ScrollTextChapter>
-    <ScrollTextChapter position='center' id={'quizFiveAnswerStep'} className='answerStep'>
-      Rip currents can reach over two metres per second, which is as fast as an Olympic swimmer!
+    <ScrollTextChapter position='center' id={'quizFiveAnswerStep'} className='answerStep md:w-3/5'>
+      Rip currents can reach over two metres per second, which is as fast as an Olympic swimmer! <span className='text-3xl leading-none'>🏊‍♀️</span>
     </ScrollTextChapter>
-    <ScrollTextChapter step='step' position='center'>
-      Rips can pull you out to sea quickly, but also a long distance from shore.
-    </ScrollTextChapter>
-    <ScrollTextChapter  position='center'>
-      In this video we used purple dye to visualise the rip.
+    <ScrollTextChapter step='step' position='center' className='md:w-3/5'>
+      Rips can also pull you very far out to sea.<br/><br/>In this video we used<br/><span className="inline-block w-max bg-[#694756] py-1 px-2 rounded-md">purple dye</span> to visualise the rip.
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizSix-step'}>
       Drag the picture of the Olympic pool and resize it to guess how many pool-lengths a rip can take you from shore.
     </ScrollTextChapter>
     <ScrollTextChapter  position='center' id={'quizSixAnswerStep'} className='answerStep'>
-    This is a big rip, it stretches 5 olympic pools into the ocean – would you be able to swim back?
+    This is a big rip, it stretches <span className="inline-block w-max bg-blue-600 py-1 px-2 rounded-md">5 olympic pools</span> into the ocean – would you be able to swim back?
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' >
       What about if you actually get caught in a rip? What should you do?
     </ScrollTextChapter>
-    <ScrollTextChapter id={'quizSeven-step'} position='center' >
+    <ScrollTextChapter id={'quizSeven-step'} position='center mb-[50vh]' >
       In this scenario you swam into the start of a rip.<br/>
       Choose what you should do next...
-    </ScrollTextChapter>
-     <ScrollTextChapter  position='center' >
     </ScrollTextChapter>
   </ScrollForeground>
 </ScrollSection>
