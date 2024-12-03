@@ -54,12 +54,33 @@ export default function QuizFive() {
   const [width, height] = useSize(parentRef)
   const originalSize = useAtomValue(videoSize)
   const [targets, setTargets] = useState<Target[]>([])
+  const [radius, setRadius] = useState<number>(10)
   const [connectors, setConnectors] = useState<Connector[]>([])
   const revealAnswer = useAtomValue(quizReveal)
 
   useEffect(() => {
+    const generateTargets = () => {
+      return Array.from({ length: numberOfCircles }, (_, i) => ({
+        id: i,
+        x: (width / (numberOfCircles + 1)) * (i + 1),
+        y: height * 0.9,
+        colour: colours[i * 2],
+        time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
+        textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
+      }))
+    }
+
+    const generateConnectors = () => {
+      return Array.from({ length: numberOfCircles - 1 }, (_, i) => ({
+        id: i,
+        from: i,
+        to: i + 1
+      }))
+    }
+
     setTargets(generateTargets())
     setConnectors(generateConnectors())
+    setRadius(width / 40)
   }, [width, height])
 
   useEffect(() => {
@@ -93,13 +114,12 @@ export default function QuizFive() {
     const dx = to.x - from.x
     const dy = to.y - from.y
     const angle = Math.atan2(-dy, dx)
-    const radius = width / 40
-
+    const r = radius * 1.5
     return [
-      from.x - radius * Math.cos(angle + Math.PI),
-      from.y + radius * Math.sin(angle + Math.PI),
-      to.x - radius * Math.cos(angle),
-      to.y + radius * Math.sin(angle)
+      from.x - r * Math.cos(angle + Math.PI),
+      from.y + r * Math.sin(angle + Math.PI),
+      to.x - r * Math.cos(angle),
+      to.y + r * Math.sin(angle)
     ]
   }
 
@@ -180,24 +200,26 @@ export default function QuizFive() {
                 key={target.id}
                 x={target.x}
                 y={target.y}
+                // x={target.x / (width / originalSize.width)}
+                // y={target.y / (height / originalSize.height)}
                 draggable
                 onDragMove={(e) => handleDragMove(target.id, e.target.x(), e.target.y())}
                 onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
                 onMouseLeave={() => (stageRef.current!.container().style.cursor = 'default')}
               >
-                <Circle x={0} y={0} fill={target.colour} radius={width / 60} shadowBlur={10} shadowColor={'#93939f'} />
+                <Circle x={0} y={0} fill={target.colour} radius={radius} shadowBlur={10} shadowColor={'#93939f'} />
                 <Text
                   text={target.time}
-                  fontSize={width / 80}
+                  fontSize={radius * 0.8}
                   fill={target.textColour}
                   fontStyle='bold'
-                  width={(width / 50) * 2}
-                  height={(width / 60) * 2}
+                  width={radius * 2}
+                  height={radius * 2}
                   align='center'
                   verticalAlign='middle'
                   lineHeight={10}
-                  x={(width / 50) * -1}
-                  y={(width / 60) * -1 + 2}
+                  x={radius * -1}
+                  y={radius * -1 + 2}
                 />
               </Group>
             ))}
@@ -207,7 +229,8 @@ export default function QuizFive() {
           id={'draw5video'}
           ref={videoRef}
           src='./draw5Video.webm'
-          muted={true}
+          playsInline
+          muted
           controls={false}
           onEnded={handleVideoEnd}
           className='pointer-events-none h-full w-full object-cover'

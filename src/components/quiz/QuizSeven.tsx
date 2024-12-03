@@ -16,7 +16,7 @@ function QuizSixButton({ handleClick, answer, question, text }: QuizSixButtonPro
         event.preventDefault()
         handleClick({ answer, question })
       }}
-      className='inline-block w-max cursor-pointer rounded-md bg-red-300 px-2 py-1 hover:bg-red-500 hover:text-white hover:drop-shadow-md'
+      className='inline-block w-max cursor-pointer rounded-md bg-neutral-300 px-2 py-1 hover:bg-neutral-500 hover:text-white hover:drop-shadow-md'
     >
       {text}
     </button>
@@ -37,7 +37,9 @@ export default function QuizSix() {
     setAnsweredQuestions((prev) => ({ ...prev, [`q${question}`]: true }))
 
     // Set results output
-    setContent(<div className='mx-auto text-pretty border border-red-600 bg-red-200 px-4 text-center'>{answer}</div>)
+    setContent(
+      <div className='mx-auto text-pretty border border-red-600 bg-red-200 px-4 py-1 text-center'>{answer}</div>
+    )
   }
 
   return (
@@ -49,7 +51,7 @@ export default function QuizSix() {
         <div className='questions transition-opacity duration-300 ease-in-out'>
           <div className=''>
             <div
-              className='absolute right-[5%] top-[32%] grid -translate-y-1/2 select-none place-items-center gap-4 text-xs md:right-[12%] md:top-[48%] lg:text-base'
+              className='absolute right-[5%] top-[70%] grid -translate-y-1/2 select-none place-items-center gap-4 text-xs md:right-[12%] md:top-[48%] lg:text-base'
               style={{
                 opacity: answeredQuestions.q1 ? 0.5 : 1,
                 filter: `saturate(${answeredQuestions.q1 ? '0' : '1'})`
@@ -76,20 +78,20 @@ export default function QuizSix() {
               </div>
             </div>
             <div
-              className='absolute left-[75%] top-[53%] animate-bounce drop-shadow-lg'
+              className='absolute left-[75%] top-[48%] animate-bounce drop-shadow-lg md:left-[75%] md:top-[53%]'
               style={{
                 opacity: answeredQuestions.q1 ? 0.5 : 1,
                 filter: `saturate(${answeredQuestions.q1 ? '0' : '1'})`,
                 animation: answeredQuestions.q1 ? 'none' : 'bounce 1s infinite'
               }}
             >
-              <img src='SwimmerIcon.png' alt='swimmer' className='not_full_screen h-auto w-10 !opacity-100' />
+              <img src='SwimmerIcon.png' alt='swimmer' className='not_full_screen h-auto w-8 !opacity-100 md:w-10' />
             </div>
           </div>
           {answeredQuestions.q1 && (
             <div className=''>
               <div
-                className='absolute left-[43%] top-[73%] grid -translate-x-1/2 -translate-y-1/2 select-none place-items-center gap-4 text-xs md:left-[39.2%] md:top-[41%] lg:text-base'
+                className='absolute left-[43%] top-[66%] grid -translate-x-1/2 -translate-y-1/2 select-none place-items-center gap-4 text-xs md:left-[39.2%] md:top-[41%] lg:text-base'
                 style={{
                   opacity: answeredQuestions.q2 ? 0.5 : 1,
                   filter: `saturate(${answeredQuestions.q2 ? '0' : '1'})`
@@ -116,7 +118,7 @@ export default function QuizSix() {
                 </div>
               </div>
               <div
-                className='absolute left-[37%] top-[46%] animate-bounce drop-shadow-lg'
+                className='absolute left-[37%] top-[43%] animate-bounce drop-shadow-lg md:left-[37%] md:top-[46%]'
                 style={{
                   opacity: answeredQuestions.q2 ? 0.5 : 1,
                   filter: `saturate(${answeredQuestions.q2 ? '0' : '1'})`,
@@ -127,7 +129,7 @@ export default function QuizSix() {
                   src='SwimmerIcon.png'
                   alt='swimmer'
                   loading='eager'
-                  className='not_full_screen h-auto w-10 !opacity-100'
+                  className='not_full_screen h-auto w-8 !opacity-100 md:w-10'
                 />
               </div>
             </div>
@@ -135,7 +137,7 @@ export default function QuizSix() {
           {answeredQuestions.q2 && (
             <div className=''>
               <div
-                className='absolute left-[30%] top-[40%] grid -translate-y-1/2 select-none place-items-center gap-4 text-xs md:left-[8.2%] md:top-[30%] lg:text-base'
+                className='absolute left-[30%] top-[30%] grid -translate-y-1/2 select-none place-items-center gap-4 text-xs md:left-[8.2%] md:top-[30%] lg:text-base'
                 style={{
                   opacity: answeredQuestions.q3 ? 0.5 : 1,
                   filter: `saturate(${answeredQuestions.q3 ? '0' : '1'})`
@@ -162,14 +164,14 @@ export default function QuizSix() {
                 </div>
               </div>
               <div
-                className='absolute left-[14%] top-[35%] animate-bounce drop-shadow-lg'
+                className='absolute left-[14%] top-[35%] animate-bounce drop-shadow-lg md:left-[14%] md:top-[35%]'
                 style={{
                   opacity: answeredQuestions.q3 ? 0.5 : 1,
                   filter: `saturate(${answeredQuestions.q3 ? '0' : '1'})`,
                   animation: answeredQuestions.q3 ? 'none' : 'bounce 1s infinite'
                 }}
               >
-                <img src='SwimmerIcon.png' alt='swimmer' className='not_full_screen h-auto w-10 !opacity-100' />
+                <img src='SwimmerIcon.png' alt='swimmer' className='not_full_screen h-auto w-8 !opacity-100 md:w-10' />
               </div>
             </div>
           )}

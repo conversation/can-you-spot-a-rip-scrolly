@@ -44,8 +44,8 @@ const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URL
 
   if (!imgBlob) return null
 
-  const imgWidth = imgBlob.width * 1.5
-  const imgHeight = imgBlob.height * 1.5
+  const imgWidth = Math.min(imgBlob.width * 1.5, window.innerWidth / 10)
+  const imgHeight = Math.min(imgBlob.height * 1.5, (window.innerWidth / 10) * 2)
 
   const handleDragStart = (e: Konva.KonvaEventObject<MouseEvent | TouchEvent>) => {
     const image = imageRef.current
@@ -327,16 +327,19 @@ export default function QuizSix() {
           >
             Clear
           </button>
-          <p className='mt-4 text-center text-xs font-bold text-neutral-100'>
-            Click to add
-            <br /> a pool
-          </p>
-          <button
-            onClick={handleAddPool}
-            className='mt-2 grid aspect-square h-auto w-20 cursor-pointer place-items-center rounded-full border bg-blue-400/60 text-6xl shadow-lg ease-in-out hover:bg-blue-500/70'
-          >
-            +
-          </button>
+          <div className='flex flex-col items-center'>
+            <p className='mt-4 text-center text-xs font-bold text-black md:text-neutral-100'>
+              Click to
+              <br />
+              add a pool
+            </p>
+            <button
+              onClick={handleAddPool}
+              className='mt-2 grid aspect-square h-auto w-10 cursor-pointer place-items-center rounded-full border bg-blue-400/60 text-2xl shadow-lg ease-in-out hover:bg-blue-500/70 md:w-20 md:text-6xl'
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
     </div>

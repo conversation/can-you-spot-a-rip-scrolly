@@ -205,8 +205,8 @@ export function ScrollSection({
         ScrollTrigger.create({
           // markers: true,
           trigger: answerStep,
-          start: 'center 60%',
-          end: 'center 60%',
+          start: 'center 30%',
+          end: 'center 30%',
           onEnter: () => {
             setRevealAnswers((prev) => ({ ...prev, [`quiz${index + 1}`]: true }))
           },
