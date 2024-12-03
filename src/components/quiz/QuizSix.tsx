@@ -44,8 +44,8 @@ const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URL
 
   if (!imgBlob) return null
 
-  const imgWidth = imgBlob.width
-  const imgHeight = imgBlob.height
+  const imgWidth = imgBlob.width * 1.5
+  const imgHeight = imgBlob.height * 1.5
 
   const handleDragStart = (e: Konva.KonvaEventObject<MouseEvent | TouchEvent>) => {
     const image = imageRef.current
@@ -141,6 +141,8 @@ const URLImage = ({ imgBlob, image, isSelected, stage, onSelect, onChange }: URL
         onMouseLeave={() => (stage.current!.container().style.cursor = 'default')}
       >
         <KonvaImage
+          width={imgWidth}
+          height={imgHeight}
           ref={imageRef}
           shadowBlur={20}
           shadowOpacity={0.5}
@@ -211,7 +213,6 @@ export default function QuizSix() {
   const stageRef = useRef<Konva.Stage>(null)
   const [images, setImages] = useState<ImageType[]>([])
   const revealAnswer = useAtomValue(quizReveal)
-  const answerImgs: ImageType[] = []
 
   const HQImgURL =
     'https://images.theconversation.com/files/635152/original/file-20241128-17-4yc7x1.png?ixlib=rb-4.1.0&q=45&auto=format&h=200'
@@ -223,7 +224,6 @@ export default function QuizSix() {
   const [selectedImg, setSelectedImg] = useState<number | null>(null)
 
   const checkDeselect = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
-    // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage()
     if (clickedOnEmpty) {
       setSelectedImg(null)
@@ -235,31 +235,29 @@ export default function QuizSix() {
     setSelectedImg(null)
   }
 
+  const handleAddPool = (e: React.MouseEvent<HTMLButtonElement> | React.PointerEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    if (!stageRef.current) return
+
+    setImages([
+      ...images,
+      {
+        x: width / 2 + (Math.random() * 2 - 1) * 50,
+        y: height / 2 + (Math.random() * 2 - 1) * 50,
+        id: images.length,
+        width: 0,
+        height: 0,
+        rotation: 15 + (Math.random() * 2 - 1) * 5
+      }
+    ])
+  }
+
   return (
     <div className='relative font-base'>
       <div
         ref={parentRef}
         className='canvas-container relative mx-auto aspect-[16/9] w-canvas-width-video max-w-full overflow-hidden rounded-md'
-        onDrop={(e: React.DragEvent<HTMLDivElement>) => {
-          e.preventDefault()
-
-          if (!stageRef.current) return
-
-          // Register event position
-          stageRef.current.setPointersPositions(e)
-
-          // Add image
-          setImages([
-            ...images,
-            {
-              ...stageRef.current.getPointerPosition()!,
-              id: images.length,
-              width: 0,
-              height: 0,
-              rotation: 15 + (Math.random() * 2 - 1) * 5
-            }
-          ])
-        }}
         onDragOver={(e) => e.preventDefault()}
       >
         <Stage
@@ -274,23 +272,9 @@ export default function QuizSix() {
           onTouchStart={checkDeselect}
         >
           <Layer>
-            {img && (
-              <>
-                <KonvaImage
-                  x={width * 0.02}
-                  y={height / 2}
-                  offsetY={img.height / 2}
-                  image={img}
-                  // onDragStart={(e) => console.log('dragStart', e)}
-                  // onPointerMove={(e) => console.log('pointerMove', e)}
-                  // onPointerDown={(e) => console.log('pointerDown', e)}
-                />
-                <KonvaImage x={width * 0.02} y={height / 2} offsetY={img.height / 2} draggable image={img} />
-              </>
-            )}
-
             {img &&
               stageRef &&
+              !revealAnswer.quiz6 &&
               images.map((image, i) => (
                 <URLImage
                   key={image.id}
@@ -309,30 +293,20 @@ export default function QuizSix() {
                   }}
                 />
               ))}
-            {img &&
-              stageRef &&
-              revealAnswer.quiz4 &&
-              answerImgs.map((image, i) => (
-                <KonvaImage
-                  key={i}
-                  image={img}
-                  draggable
-                  shadowBlur={20}
-                  shadowOffset={{
-                    x: 5,
-                    y: 5
-                  }}
-                  rotation={image.rotation}
-                  width={image.width}
-                  height={image.height}
-                  x={image.x}
-                  y={image.y}
-                  offsetX={image.width / 2}
-                  offsetY={image.height / 2}
-                />
-              ))}
           </Layer>
         </Stage>
+        <div
+          className='not_full_screen pointer-events-none absolute h-full w-full object-cover transition-opacity duration-300 ease-in-out'
+          style={{ opacity: revealAnswer.quiz6 ? 1 : 0 }}
+        >
+          <img src='quiz6answer.png' className='not_full_screen h-full w-full object-cover opacity-100' />
+          <span className='text-bold absolute left-[45%] top-[30%] text-sm font-bold text-red-400 md:text-lg'>
+            Surfers!
+          </span>
+          <span className='text-bold absolute left-[58%] top-[57%] text-lg font-bold text-red-600 md:text-3xl'>
+            150m!
+          </span>
+        </div>
         <video
           ref={videoRef}
           src='./draw6Video.webm'
@@ -342,6 +316,7 @@ export default function QuizSix() {
           loop
           className='pointer-events-none h-full w-full object-cover'
         ></video>
+
         <div
           className='absolute left-2 top-2 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'
           id={'draw6Controls'}
@@ -352,16 +327,16 @@ export default function QuizSix() {
           >
             Clear
           </button>
-          {/* <p className='mt-4 text-xs font-bold text-neutral-100'>
-            Click on images <br />
-            to resize
-          </p> */}
-          {/* <img
-            src={HQImgURL}
-            alt='Olympic pool'
-            draggable
-            className='not_full_screen !mx-0 mt-2 h-auto w-[40%] cursor-pointer object-cover shadow-lg transition-all duration-200 ease-in-out md:w-24'
-          /> */}
+          <p className='mt-4 text-center text-xs font-bold text-neutral-100'>
+            Click to add
+            <br /> a pool
+          </p>
+          <button
+            onClick={handleAddPool}
+            className='mt-2 grid aspect-square h-auto w-20 cursor-pointer place-items-center rounded-full border bg-blue-400/60 text-6xl shadow-lg ease-in-out hover:bg-blue-500/70'
+          >
+            +
+          </button>
         </div>
       </div>
     </div>
