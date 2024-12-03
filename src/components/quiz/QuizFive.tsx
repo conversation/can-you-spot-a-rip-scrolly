@@ -163,7 +163,7 @@ export default function QuizFive() {
   }
 
   const handleVideoEnd = () => {
-    resetVideo()
+    setTimeout(() => resetVideo(), 1000)
   }
 
   const resetGame = () => {
@@ -228,7 +228,7 @@ export default function QuizFive() {
         <video
           id={'draw5video'}
           ref={videoRef}
-          src='./draw5Video.webm'
+          src='./draw5Video_timer.webm'
           playsInline
           muted
           controls={false}

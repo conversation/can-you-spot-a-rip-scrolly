@@ -67,13 +67,13 @@ export function Author({
         <span className='text-xs'>{name}</span>
       </a>
 
-      <p className='not-prose m-0 ml-16 block text-xs'>
+      <p className='!m-0 block pl-16 pt-1 text-xs'>
         {title}
         {affiliation ? (
           affiliationLink ? (
             <>
               ,&nbsp;
-              <a className='underline hover:text-neutral-100' href={affiliationLink} target='_blank'>
+              <a className='underline' href={affiliationLink} target='_blank'>
                 {affiliation}
               </a>
             </>
