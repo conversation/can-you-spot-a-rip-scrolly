@@ -32,7 +32,7 @@ export default function QuizThree() {
     }
 
     // Start a new line with stroke 'red'
-    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#d8352a' }])
+    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#feaa01' }])
   }
 
   const handlePointerMove = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {

@@ -32,7 +32,7 @@ export default function QuizOne() {
     }
 
     // Start a new line with stroke 'red'
-    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#d8352a' }])
+    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#feaa01' }])
   }
 
   const handlePointerMove = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -107,25 +107,13 @@ export default function QuizOne() {
               <Line
                 key={i}
                 points={line.points}
-                stroke={revealAnswer.quiz1 ? '#b1b1b9' : line.stroke}
+                stroke={line.stroke}
                 strokeWidth={4}
                 tension={0.4}
                 lineCap='round'
                 lineJoin='round'
               />
             ))}
-            {/* {revealAnswer.quiz1 &&
-              answerLines.map((line, i) => (
-                <Line
-                  key={i}
-                  points={line.points}
-                  stroke={'#40bf95'}
-                  strokeWidth={4}
-                  tension={0.4}
-                  lineCap='round'
-                  lineJoin='round'
-                />
-              ))} */}
           </Layer>
         </Stage>
 
