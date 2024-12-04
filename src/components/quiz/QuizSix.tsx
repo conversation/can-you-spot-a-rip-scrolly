@@ -299,12 +299,15 @@ export default function QuizSix() {
           className='not_full_screen pointer-events-none absolute h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz6 ? 1 : 0 }}
         >
-          <img src='quiz6answer.png' className='not_full_screen h-full w-full object-cover opacity-100' />
-          <span className='text-bold absolute left-[45%] top-[30%] text-sm font-bold text-red-400 md:text-lg'>
-            Surfers!
+          <img
+            src={`https://images.theconversation.com/files/636083/original/file-20241204-15-f8wfm5.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
+            className='not_full_screen h-full w-full object-cover opacity-100'
+          />
+          <span className='text-bold absolute left-[45%] top-[30%] text-sm font-bold text-yellow-500 md:text-lg'>
+            Surfers
           </span>
-          <span className='text-bold absolute left-[58%] top-[57%] text-lg font-bold text-red-600 md:text-3xl'>
-            150m!
+          <span className='text-bold absolute left-[62%] top-[23%] text-lg font-bold text-yellow-500 drop-shadow-xl md:text-3xl'>
+            150m
           </span>
         </div>
         <video

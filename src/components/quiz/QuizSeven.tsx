@@ -38,7 +38,7 @@ export default function QuizSix() {
 
     // Set results output
     setContent(
-      <div className='mx-auto text-pretty border border-red-600 bg-red-200 px-4 py-1 text-center'>{answer}</div>
+      <div className='mx-auto text-pretty border border-neutral-600 bg-neutral-200 px-4 py-1 text-center'>{answer}</div>
     )
   }
 
@@ -48,7 +48,7 @@ export default function QuizSix() {
         ref={parentRef}
         className='canvas-container relative mx-auto aspect-[4/3] w-canvas-width max-w-full overflow-hidden rounded-md bg-[url(https://images.theconversation.com/files/635449/original/file-20241201-17-rrt4sw.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=800)] bg-cover bg-no-repeat shadow-lg'
       >
-        <div className='questions transition-opacity duration-300 ease-in-out'>
+        <div className='questions opacity-0 transition-opacity duration-300 ease-in-out'>
           <div className=''>
             <div
               className='absolute right-[5%] top-[70%] grid -translate-y-1/2 select-none place-items-center gap-4 text-xs md:right-[12%] md:top-[48%] lg:text-base'
@@ -60,14 +60,14 @@ export default function QuizSix() {
               <div
                 className='flex flex-col items-center gap-1 md:flex-row md:gap-4'
                 style={{
-                  pointerEvents: answeredQuestions.q1 ? 'none' : 'auto'
+                  pointerEvents: answeredQuestions.q1 ? 'none' : 'inherit'
                 }}
               >
                 <QuizSixButton
-                  answer='If you swam left you would head INTO the rip... not a good idea!'
+                  answer="Correct! If you aren't a strong swimmer then the latest advice is to float for the whole rip."
                   question={1}
                   handleClick={handleClick}
-                  text='👈 Swim left'
+                  text='Float 🛟'
                 ></QuizSixButton>
                 <QuizSixButton
                   answer='If you swam right you would be going against the current, which would tire you out!'
@@ -100,7 +100,7 @@ export default function QuizSix() {
                 <div
                   className='flex flex-col items-center gap-1 md:flex-row md:gap-4'
                   style={{
-                    pointerEvents: answeredQuestions.q2 ? 'none' : 'auto'
+                    pointerEvents: answeredQuestions.q2 ? 'none' : 'inherit'
                   }}
                 >
                   <QuizSixButton
@@ -110,10 +110,10 @@ export default function QuizSix() {
                     text='Swim to shore 👇'
                   />
                   <QuizSixButton
-                    answer='Swimming out is...'
+                    answer='Correct! Start signalling for help as soon as possible. Raise your arms, yell, splash around.'
                     question={2}
                     handleClick={handleClick}
-                    text='☝️ Swim out to sea'
+                    text='Signal for help 🚨'
                   />
                 </div>
               </div>
@@ -146,12 +146,12 @@ export default function QuizSix() {
                 <div
                   className='flex flex-col gap-1 md:flex-row md:gap-4'
                   style={{
-                    pointerEvents: answeredQuestions.q3 ? 'none' : 'auto'
+                    pointerEvents: answeredQuestions.q3 ? 'none' : 'inherit'
                   }}
                 >
                   <QuizSixButton
                     question={3}
-                    answer='The newest advice is to float (not swim sideways), while signaling for help'
+                    answer='Correct. Continue to float until you have regained your energy or help arrives.'
                     handleClick={handleClick}
                     text='Float 🛟'
                   />

@@ -178,8 +178,9 @@ export function ScrollSection({
       if (!revealQuizStep || !questions) return
 
       ScrollTrigger.create({
+        // markers: true,
         trigger: revealQuizStep,
-        start: 'center 75%',
+        start: 'center 85%',
         onEnter: () => {
           gsap.set(questions, { opacity: 100 })
         },
@@ -203,7 +204,7 @@ export function ScrollSection({
 
       answerSteps.forEach((answerStep, index) => {
         ScrollTrigger.create({
-          markers: true,
+          // markers: true,
           trigger: answerStep,
           start: 'center 120%',
           end: 'center 120%',

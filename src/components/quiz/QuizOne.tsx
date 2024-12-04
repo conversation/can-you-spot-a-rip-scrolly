@@ -32,7 +32,7 @@ export default function QuizOne() {
     }
 
     // Start a new line with stroke 'red'
-    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#feaa01' }])
+    setLines([...lines, { points: [adjustedPoint.x, adjustedPoint.y], stroke: '#e37169' }])
   }
 
   const handlePointerMove = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -65,16 +65,16 @@ export default function QuizOne() {
     if (!isDrawing) return
     setIsDrawing(false)
 
-    // Change the last line's stroke to 'green'
-    setLines((prevLines) => {
-      const updatedLines = prevLines.slice()
-      const lastLine = { ...updatedLines[updatedLines.length - 1] }
-      if (lastLine) {
-        lastLine.stroke = '#feaa01'
-        updatedLines[updatedLines.length - 1] = lastLine
-      }
-      return updatedLines
-    })
+    // // Change the last line's stroke to 'green'
+    // setLines((prevLines) => {
+    //   const updatedLines = prevLines.slice()
+    //   const lastLine = { ...updatedLines[updatedLines.length - 1] }
+    //   if (lastLine) {
+    //     lastLine.stroke = '#e37169'
+    //     updatedLines[updatedLines.length - 1] = lastLine
+    //   }
+    //   return updatedLines
+    // })
   }
 
   const handleClearLines = () => {
@@ -121,7 +121,10 @@ export default function QuizOne() {
           className='not_full_screen pointer-events-none absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz1 ? 1 : 0 }}
         >
-          <img src='quiz1answer.png' className='not_full_screen h-full w-full object-cover opacity-100' />
+          <img
+            src={`https://images.theconversation.com/files/636059/original/file-20241204-15-2keg9u.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
+            className='not_full_screen h-full w-full object-cover opacity-100'
+          />
         </div>
 
         <div className='absolute left-2 top-2 flex gap-4 text-sm md:text-lg'>
