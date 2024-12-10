@@ -38,7 +38,10 @@ export default function QuizSix() {
 
     // Set results output
     setContent(
-      <div className='mx-auto text-pretty border border-neutral-600 bg-neutral-200 px-4 py-1 text-center'>{answer}</div>
+      <div
+        className='mx-auto text-pretty rounded-md bg-neutral-200 px-2 py-1 text-center shadow-md'
+        dangerouslySetInnerHTML={{ __html: answer }}
+      ></div>
     )
   }
 
@@ -59,7 +62,7 @@ export default function QuizSix() {
               }}
             >
               <QuizSixButton
-                answer="Correct! If you aren't a strong swimmer then the latest advice is to float for the whole rip."
+                answer="<span class='text-green-600 font-bold'>Correct!</span> If you aren't a strong swimmer then the latest advice is to float for the whole rip."
                 question={1}
                 handleClick={handleClick}
                 text='Float 🛟'
@@ -107,7 +110,7 @@ export default function QuizSix() {
                   text='Swim to shore 👇'
                 />
                 <QuizSixButton
-                  answer='Correct! Start signalling for help as soon as possible. Raise your arms, yell, splash around.'
+                  answer="<span class='text-green-600 font-bold'>Correct!</span> Start signalling for help as soon as possible. Raise your arms, yell, splash around."
                   question={2}
                   handleClick={handleClick}
                   text='Signal for help 🚨'
@@ -145,7 +148,7 @@ export default function QuizSix() {
               >
                 <QuizSixButton
                   question={3}
-                  answer='Correct. Continue to float until you have regained your energy or help arrives.'
+                  answer="<span class='text-green-600 font-bold'>Correct!</span> Continue to float until you have regained your energy or help arrives."
                   handleClick={handleClick}
                   text='Float 🛟'
                 />
