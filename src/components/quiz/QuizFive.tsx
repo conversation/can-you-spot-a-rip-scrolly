@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Stage, Layer, Arrow, Circle, Text, Group } from 'react-konva'
+import { Stage, Layer, Arrow, Circle, Text, Group } from 'react-konva/lib/ReactKonvaCore'
 import useSize from '@react-hook/size'
 import Konva from 'konva'
 import { quizReveal, videoSize } from '../../context/Atoms'

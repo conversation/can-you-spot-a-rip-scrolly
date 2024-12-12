@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import Konva from 'konva'
-import { Stage, Layer, Image as KonvaImage, Transformer, Text, Group } from 'react-konva'
+import { Stage, Layer, Image as KonvaImage, Transformer, Text, Group } from 'react-konva/lib/ReactKonvaCore'
 import useSize from '@react-hook/size'
 import useImage from 'use-image'
 import { KonvaEventObject } from 'konva/lib/Node'

@@ -4,10 +4,15 @@ import mdx from '@mdx-js/rollup'
 
 export default defineConfig({
   plugins: [react(), mdx({})],
-  define: {
-    // Some libraries use the global object, even though it doesn't exist in the browser.
-    // Alternatively, we could add `<script>window.global = window;</script>` to index.html.
-    // https://github.com/vitejs/vite/discussions/5912
-    global: {}
+  define: { global: {} },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', '@mdx-js/loader', '@mdx-js/react', '@mdx-js/rollup', '@react-hook/size']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })

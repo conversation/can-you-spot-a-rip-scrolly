@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Stage, Layer, Line } from 'react-konva'
+import { Stage, Layer, Line } from 'react-konva/lib/ReactKonvaCore'
 import useSize from '@react-hook/size'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { useAtomValue } from 'jotai'
