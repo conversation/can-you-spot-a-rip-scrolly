@@ -62,7 +62,7 @@ export default function QuizSix() {
               }}
             >
               <QuizSixButton
-                answer="<span class='text-green-600 font-bold'>Correct!</span> If you aren't a strong swimmer then the latest advice is to float for the whole rip."
+                answer="<span class='text-green-600 font-bold'>Correct!</span> The best advice is to float, conserve your energy and signal for help."
                 question={1}
                 handleClick={handleClick}
                 text='Float 🛟'

@@ -4,6 +4,7 @@ import useSize from '@react-hook/size'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { useAtomValue } from 'jotai'
 import { quizReveal, standardSize } from '../../context/Atoms'
+import BackgroundImage from '../BackgroundImage'
 
 export default function QuizTwo() {
   const parentRef = useRef(null)
@@ -120,9 +121,8 @@ export default function QuizTwo() {
           className='not_full_screen pointer-events-none absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz2 ? 1 : 0 }}
         >
-          <img
+          <BackgroundImage
             src={`https://images.theconversation.com/files/636058/original/file-20241204-17-5xlcnb.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
-            className='not_full_screen h-full w-full object-cover opacity-100'
           />
         </div>
 

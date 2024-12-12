@@ -7,6 +7,7 @@ import { KonvaEventObject } from 'konva/lib/Node'
 import { ReactRef } from '@gsap/react'
 import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
+import BackgroundImage from '../BackgroundImage'
 
 // Types
 interface ImageType {
@@ -299,9 +300,8 @@ export default function QuizSix() {
           className='not_full_screen pointer-events-none absolute h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz6 ? 1 : 0 }}
         >
-          <img
+          <BackgroundImage
             src={`https://images.theconversation.com/files/636083/original/file-20241204-15-f8wfm5.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
-            className='not_full_screen h-full w-full object-cover opacity-100'
           />
           <span className='text-bold absolute left-[45%] top-[30%] text-sm font-bold text-yellow-500 md:text-lg'>
             Surfers
@@ -312,13 +312,22 @@ export default function QuizSix() {
         </div>
         <video
           ref={videoRef}
-          src='./draw6Video.webm'
           controls={false}
           autoPlay
           muted
           loop
           className='pointer-events-none h-full w-full object-cover'
-        ></video>
+        >
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.webm'
+            type='video/webm'
+          />
+
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.mp4'
+            type='video/mp4'
+          />
+        </video>
 
         <div
           className='absolute left-2 top-2 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'

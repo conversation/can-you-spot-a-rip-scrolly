@@ -6,16 +6,16 @@ export default function ArticleSetup({
   title,
   dropCap,
   author,
-  standfirst,
   keywords,
+  description,
   image
 }: {
   theme: string
   title: string
   dropCap: boolean
   author: string
-  standfirst: string
   keywords: [string]
+  description: string
   image: string
 }) {
   const { toggleDarkMode } = useDarkMode()
@@ -27,17 +27,17 @@ export default function ArticleSetup({
 
     // Define meta tag setup
     const metaTags = [
+      { 'http-equiv': 'Content-Language', content: 'en-AU' },
       { name: 'theme-color', content: '#d8352a' },
       { name: 'msapplication-navbutton-color', content: '#d8352a' },
-      { name: 'current-region', content: 'au' },
-      { 'http-equiv': 'Content-Language', content: 'en-AU' },
-      { name: 'description', content: standfirst },
+      { name: 'description', content: description },
       { name: 'news_keywords', content: keywords.toString() },
       { name: 'author', content: author },
-      { property: 'og:type', content: 'article' },
+      { name: 'current-region', content: 'au' },
       { property: 'og:site_name', content: 'The Conversation' },
+      { property: 'og:type', content: 'article' },
       { property: 'og:title', content: title },
-      { property: 'og:description', content: standfirst },
+      { property: 'og:description', content: description },
       { property: 'og:image', content: image }
     ]
 

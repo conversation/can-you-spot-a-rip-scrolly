@@ -20,18 +20,6 @@ interface Connector {
   to: number
 }
 
-// const colours = [
-//   '#3d0400',
-//   '#660700',
-//   '#990a00',
-//   '#b81f14',
-//   '#d8352a',
-//   '#e37169',
-//   '#e9928c',
-//   '#ecc3C0',
-//   '#f1dddc',
-//   '#f9f1f0'
-// ]
 const colours = [
   '#f9f1f0',
   '#f1dddc',
@@ -65,7 +53,7 @@ export default function QuizFive() {
         x: (width / (numberOfCircles + 1)) * (i + 1),
         y: height * 0.9,
         colour: colours[i * 2],
-        time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
+        time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? '1 min' : '2 min'}`,
         textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
       }))
     }
@@ -97,7 +85,7 @@ export default function QuizFive() {
       x: (width / (numberOfCircles + 1)) * (i + 1),
       y: height * 0.9,
       colour: colours[i * 2],
-      time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? 60 : 120}`,
+      time: `${i === 0 ? 0 : i === 1 ? 30 : i === 2 ? '1 min' : '2 min'}`,
       textColour: `${i === 0 ? colours[9] : i === 1 ? colours[9] : i === 2 ? colours[9] : colours[1]}`
     }))
   }
@@ -132,7 +120,7 @@ export default function QuizFive() {
 
     if (!btn) return
 
-    if (btn.textContent === 'Restart' || btn.textContent === 'Replay') {
+    if (btn.textContent === 'Replay video') {
       resetVideo()
     } else {
       playVideo()
@@ -147,7 +135,7 @@ export default function QuizFive() {
     if (!btn) return
 
     videoRef.current.play()
-    btn!.textContent = 'Restart'
+    btn!.textContent = 'Replay video'
   }
 
   const resetVideo = () => {
@@ -200,8 +188,6 @@ export default function QuizFive() {
                 key={target.id}
                 x={target.x}
                 y={target.y}
-                // x={target.x / (width / originalSize.width)}
-                // y={target.y / (height / originalSize.height)}
                 draggable
                 onDragMove={(e) => handleDragMove(target.id, e.target.x(), e.target.y())}
                 onMouseEnter={() => (stageRef.current!.container().style.cursor = 'pointer')}
@@ -209,8 +195,8 @@ export default function QuizFive() {
               >
                 <Circle x={0} y={0} fill={target.colour} radius={radius} shadowBlur={10} shadowColor={'#93939f'} />
                 <Text
-                  text={target.time}
-                  fontSize={radius * 0.8}
+                  text={window.innerWidth < 599 ? '' : target.time}
+                  fontSize={radius * 0.5}
                   fill={target.textColour}
                   fontStyle='bold'
                   width={radius * 2}
@@ -228,14 +214,23 @@ export default function QuizFive() {
         <video
           id={'draw5video'}
           ref={videoRef}
-          src='./draw5Video_timer.webm'
           playsInline
           muted
           controls={false}
           onEnded={handleVideoEnd}
           className='pointer-events-none h-full w-full object-cover'
-        ></video>
-        <div className='draw5Controls absolute left-2 top-2 flex gap-4 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'>
+        >
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw5Video_timer.webm'
+            type='video/webm'
+          />
+
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw5Video_timer.mp4'
+            type='video/mp4'
+          />
+        </video>
+        <div className='draw5Controls absolute left-auto right-2 top-2 flex gap-4 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg lg:left-2 lg:right-auto'>
           <button
             id={'draw5PlayBtn'}
             onClick={handleVideoPlay}
@@ -247,7 +242,7 @@ export default function QuizFive() {
             onClick={resetGame}
             className='cursor-pointer bg-neutral-900/50 p-2 text-white transition-all duration-150 ease-in-out hover:shadow-lg active:scale-95'
           >
-            Reset
+            Reset quiz
           </button>
         </div>
       </div>

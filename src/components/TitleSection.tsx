@@ -3,7 +3,7 @@ import TitleTextBorder from './TitleTextBorder'
 import { cn } from '../util/helpers'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-// import { useDarkMode } from '../context/useDarkMode'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 export default function TitleSection({
   children,
@@ -68,23 +68,37 @@ export default function TitleSection({
       if (!header) return
 
       const titleImage = section.querySelector('#titleImg > *')
+      if (!titleImage) return
 
-      if (titleImage) {
-        gsap
-          .timeline({
-            scrollTrigger: {
-              scrub: true,
-              trigger: clipped ? section : titleImage,
-              start: 'top top',
-              end: 'bottom top'
-            }
-          })
-          .fromTo(
-            titleImage,
-            { y: clipped ? header.clientHeight : 0 },
-            { y: clipped ? header.clientHeight * -1 : 100, ease: 'linear' }
-          )
-      }
+      const titleVideo: HTMLVideoElement | null = document.getElementById('title_video') as HTMLVideoElement
+      if (!titleVideo) return
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            scrub: true,
+            trigger: clipped ? section : titleImage,
+            start: 'top top',
+            end: 'bottom top'
+          }
+        })
+        .fromTo(
+          titleImage,
+          { y: clipped ? header.clientHeight : 0 },
+          { y: clipped ? header.clientHeight * -1 : 100, ease: 'linear' }
+        )
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'bottom bottom',
+        end: 'bottom top',
+        onLeave: () => {
+          titleVideo.pause()
+        },
+        onEnterBack: () => {
+          titleVideo.play()
+        }
+      })
     },
     { scope: sectionRef }
   )
@@ -158,7 +172,10 @@ export default function TitleSection({
             </svg>
           </div>
         </div>
-        <div id='titleImg' className='not-prose col-start-1 row-start-1 h-full w-full overflow-clip'>
+        <div
+          id='titleImg'
+          className='not-prose col-start-1 row-start-1 h-full max-h-screen w-full overflow-clip bg-[#8e9e9d]'
+        >
           {children}
         </div>
       </div>

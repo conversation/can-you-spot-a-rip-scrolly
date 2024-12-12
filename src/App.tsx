@@ -19,6 +19,18 @@ export default function App() {
         img.setAttribute('loaded', '')
       }
     })
+    document.querySelectorAll('video').forEach((video) => {
+      // Add an event listener for the 'loadeddata' event
+      video.addEventListener('loadeddata', () => {
+        video.setAttribute('loaded', '')
+      })
+
+      // If the video is already ready, set the attribute
+      if (video.readyState >= 1) {
+        // 1 corresponds to HAVE_METADATA
+        video.setAttribute('loaded', '')
+      }
+    })
   }, [])
 
   return (

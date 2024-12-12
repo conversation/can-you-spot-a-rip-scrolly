@@ -2,8 +2,9 @@ import { useRef, useState } from 'react'
 import { Stage, Layer, Line } from 'react-konva'
 import useSize from '@react-hook/size'
 import { KonvaEventObject } from 'konva/lib/Node'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { quizReveal, standardSize } from '../../context/Atoms'
+import BackgroundImage from '../BackgroundImage'
 
 export default function QuizOne() {
   const parentRef = useRef(null)
@@ -11,7 +12,7 @@ export default function QuizOne() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [lines, setLines] = useState<{ points: number[]; stroke: string }[]>([])
   const originalSize = useAtomValue(standardSize)
-  const [revealAnswer, setReveal] = useAtom(quizReveal)
+  const revealAnswer = useAtomValue(quizReveal)
 
   // Calculate the scaling factors
   const scaleX = width / originalSize.width
@@ -64,22 +65,10 @@ export default function QuizOne() {
   const handlePointerUp = () => {
     if (!isDrawing) return
     setIsDrawing(false)
-
-    // // Change the last line's stroke to 'green'
-    // setLines((prevLines) => {
-    //   const updatedLines = prevLines.slice()
-    //   const lastLine = { ...updatedLines[updatedLines.length - 1] }
-    //   if (lastLine) {
-    //     lastLine.stroke = '#e37169'
-    //     updatedLines[updatedLines.length - 1] = lastLine
-    //   }
-    //   return updatedLines
-    // })
   }
 
   const handleClearLines = () => {
     setLines([])
-    setReveal((prev) => ({ ...prev, quiz1: false }))
   }
 
   return (
@@ -121,9 +110,8 @@ export default function QuizOne() {
           className='not_full_screen pointer-events-none absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz1 ? 1 : 0 }}
         >
-          <img
-            src={`https://images.theconversation.com/files/636059/original/file-20241204-15-2keg9u.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
-            className='not_full_screen h-full w-full object-cover opacity-100'
+          <BackgroundImage
+            src={`tps://images.theconversation.com/files/638081/original/file-20241212-19-ft47c.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
           />
         </div>
 
