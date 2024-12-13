@@ -26,20 +26,20 @@ export default function ArticleSetup({
     }
 
     // Define meta tag setup
-    const metaTags = [
-      { 'http-equiv': 'Content-Language', content: 'en-AU' },
-      { name: 'theme-color', content: '#d8352a' },
-      { name: 'msapplication-navbutton-color', content: '#d8352a' },
-      { name: 'description', content: description },
-      { name: 'news_keywords', content: keywords.toString() },
-      { name: 'author', content: author },
-      { name: 'current-region', content: 'au' },
-      { property: 'og:site_name', content: 'The Conversation' },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
-      { property: 'og:image', content: image }
-    ]
+    // const metaTags = [
+    //   { 'http-equiv': 'Content-Language', content: 'en-AU' },
+    //   { name: 'theme-color', content: '#d8352a' },
+    //   { name: 'msapplication-navbutton-color', content: '#d8352a' },
+    //   { name: 'description', content: description },
+    //   { name: 'news_keywords', content: keywords.toString() },
+    //   { name: 'author', content: author },
+    //   { name: 'current-region', content: 'au' },
+    //   { property: 'og:site_name', content: 'The Conversation' },
+    //   { property: 'og:type', content: 'article' },
+    //   { property: 'og:title', content: title },
+    //   { property: 'og:description', content: description },
+    //   { property: 'og:image', content: image }
+    // ]
 
     // // Append or update meta tags
     // metaTags.forEach(({ name, property, content }) => {
