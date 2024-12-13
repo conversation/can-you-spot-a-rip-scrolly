@@ -132,7 +132,7 @@ export default function TitleSection({
             )}
 
             {textBackground && standFirst ? (
-              <TitleTextBorder as={'h2'} className='not-prose text-center font-base text-2xl md:text-3xl lg:text-4xl'>
+              <TitleTextBorder as={'h2'} className='not-prose text-center font-base text-2xl md:text-3xl lg:text-3xl'>
                 {standFirst}
               </TitleTextBorder>
             ) : (

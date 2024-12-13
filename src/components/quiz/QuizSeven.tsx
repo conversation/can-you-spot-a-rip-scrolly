@@ -94,7 +94,7 @@ export default function QuizSix() {
             </div>
           </div>
           {answeredQuestions.q1 && (
-            <div className='absolute left-[49%] top-[45%] flex -translate-x-1/2 flex-col-reverse items-center gap-4 sm:left-[49%] sm:top-[50%] sm:-translate-y-full sm:flex-col'>
+            <div className='absolute left-[48%] top-[46%] flex -translate-x-1/2 flex-col-reverse items-center gap-4 sm:left-[40%] sm:top-[50%] sm:-translate-y-full sm:flex-col'>
               <div
                 className='flex flex-col items-center gap-1 text-xs sm:flex-row sm:gap-4 lg:text-base'
                 style={{

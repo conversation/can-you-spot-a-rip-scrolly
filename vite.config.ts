@@ -9,7 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', '@mdx-js/loader', '@mdx-js/react', '@mdx-js/rollup', '@react-hook/size']
+          vendor: ['react', 'react-dom']
         }
       }
     },

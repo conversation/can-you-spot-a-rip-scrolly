@@ -261,10 +261,29 @@ export default function QuizSix() {
         className='canvas-container relative mx-auto aspect-[16/9] w-canvas-width-video max-w-full overflow-hidden rounded-md'
         onDragOver={(e) => e.preventDefault()}
       >
+        <video
+          ref={videoRef}
+          controls={false}
+          autoPlay
+          muted
+          loop
+          className='pointer-events-none absolute left-0 top-0 h-full w-full object-cover'
+        >
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.webm'
+            type='video/webm'
+          />
+
+          <source
+            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.mp4'
+            type='video/mp4'
+          />
+        </video>
+
         <Stage
           id={'draw6Canvas'}
           ref={stageRef}
-          className='absolute opacity-0 transition-opacity duration-300 ease-in-out'
+          className='absolute left-0 top-0 opacity-0 transition-opacity duration-300 ease-in-out'
           width={width}
           height={height}
           scaleX={width / originalSize.width}
@@ -297,7 +316,7 @@ export default function QuizSix() {
           </Layer>
         </Stage>
         <div
-          className='not_full_screen pointer-events-none absolute h-full w-full object-cover transition-opacity duration-300 ease-in-out'
+          className='not_full_screen pointer-events-none absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-300 ease-in-out'
           style={{ opacity: revealAnswer.quiz6 ? 1 : 0 }}
         >
           <BackgroundImage
@@ -310,24 +329,6 @@ export default function QuizSix() {
             150m
           </span>
         </div>
-        <video
-          ref={videoRef}
-          controls={false}
-          autoPlay
-          muted
-          loop
-          className='pointer-events-none h-full w-full object-cover'
-        >
-          <source
-            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.webm'
-            type='video/webm'
-          />
-
-          <source
-            src='https://cdn.theconversation.com/infographics/1128/6ac6adf562184b909e404bf6499d70476456c8be/site/draw6Video.mp4'
-            type='video/mp4'
-          />
-        </video>
 
         <div
           className='absolute left-2 top-2 text-sm opacity-0 transition-opacity duration-300 ease-in-out md:text-lg'

@@ -26,12 +26,12 @@ import QuizSeven from './components/quiz/QuizSeven'
 />
 
 <TitleSection
-  title='Can you <br/> spot a rip?'
+  title='Can you spot <br/> a rip current?'
   standFirst="Take our 5 minute quiz on Australia's number one coastal hazard"
   publishDate={new Date("2024-12-16T06:00:00")}
   author='Professor Rob Brander'
   authorLink='https://theconversation.com/profiles/rob-brander-111027'
-  authorAffiliation='University of New South Wales'
+  authorAffiliation='UNSW Sydney'
   authorAffiliationLink='https://theconversation.com/institutions/unsw-sydney-1414'
   className=''
   clipped={true}
@@ -49,9 +49,11 @@ import QuizSeven from './components/quiz/QuizSeven'
   </video>
 </TitleSection>
 
-Rip currents are powerful, fast-moving channels of water that flow away from the shore, posing a significant hazard to swimmers and surfers. They are responsible for a large percentage of ocean rescues and fatalities each year. 
+Rip currents are powerful, fast-moving currents that flow away from the shore, often occupying deep channels, and pose a significant hazard to swimmers. They are responsible for an average of 21 drownings a year in Australia, which are more deaths than [bushfires, floods, cyclones, and sharks](https://nhess.copernicus.org/articles/13/1687/2013/ ) combined.
 
-New safety guidelines, based on research by Surf Life Saving Australia and others, are aiming to help lower the risks at the beach this summer. However, it means that the advice many Australian got in school is now outdated. This quiz will teach you the latest recommendations, good luck!
+Thousands of people get caught in rip currents each year around Australia. [Research has shown](https://link.springer.com/article/10.1007/s11069-013-0979-1) that rips are more complex than previously thought and there is no single piece of advice for escaping a rip that works for all conditions and people. What you may have been taught to do as a kid may not actually be the best advice.
+
+This quiz will teach you how to spot a rip, what to do if you're caught in one and to remind you to always swim between the red and yellow flags on patrolled beaches. Good luck!
 
 <p className='text-sm  text-center '>Keep scrolling to move to the next question...</p>
 
@@ -122,20 +124,20 @@ New safety guidelines, based on research by Surf Life Saving Australia and other
     <span className='bg-neutral-400 mt-1 py-1 px-2 rounded-md shadow-md inline-block'>Click (or press) & drag to draw, <br/>then keep scrolling to reveal the answer</span>
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizOneAnswerStep'} className='answerStep'>
-      There can be more than one rip at a beach, try to spot them all before swimming.<br/><br/>This was an easier one – but you probably don't usually see a beach from the sky...
+      It's important to remember there can be more than one rip at a beach.<br/><br/>This was an easier one – but you probably don't usually see a beach from the sky...
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' className='mb-[50vh]'>
-      This angle is a bit more realistic. <br/>
+      This view is a bit more realistic. <br/>
       Can you circle the rip here?
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizTwoAnswerStep'} className='answerStep'>
-    This one starts from a side feeder current. Rips often don't just move in a straight line.
+    Rips often begin by flowing along the beach and then out and they don't always flow in a straight line offshore.
     </ScrollTextChapter>
     <ScrollTextChapter position='center' >
     Ok, let's increase the difficulty...
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' className='mb-[50vh]'>
-      Can you spot a rip when you are actually <span className="font-bold underline [font-size:larger]">in</span> the water?
+      Can you spot a rip when you are much closer to the water?
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizThreeAnswerStep'} className='answerStep'>
       Here it is!<br/> It often helps to look sideways along the beach to spot rips.
@@ -150,17 +152,19 @@ New safety guidelines, based on research by Surf Life Saving Australia and other
       Lifeguards and lifesavers put up a pair of red and yellow flags and people are encouraged to always swim or bathe 'between the flags'.
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' className='mb-[50vh]'>
-      Drag the flags to where you think is the best place for people to go in the water.
+      Drag the flags to where you think <br/>is the best place for people to go in the water.
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizFourAnswerStep'} className='answerStep'>
-      This beach has a lot of rips and should be treated with caution.<br/>
-      The safest places to enter the water are where there's lots of whitewater from breaking waves. <br/><br/>But the reality is that if there are no flags, you shouldn't go in the water.
+      This beach is unpatrolled and has a lot of rips<br/>and should be treated with extreme caution.
+    </ScrollTextChapter>
+    <ScrollTextChapter position='center'>
+      In general, on any beach the safest places to enter the water are where there's lots of whitewater from breaking waves. That's where the flags are normally placed.<br/><br/>But the reality is that if there are no flags, you shouldn't go in the water.
     </ScrollTextChapter>
     <ScrollTextChapter position='center' >
       Now let's look at how a rip works...
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center'>
-      Here we placed flourescent <span className="inline-block w-max bg-[#d2f536] py-1 px-2 rounded-md text-black">yellow dye</span><br/> into the water to visualise the current.
+      Here we placed harmless fluorescent <span className="inline-block w-max bg-[#d2f536] py-1 px-2 rounded-md text-black">yellow dye</span><br/> into the water to visualise the current.
     </ScrollTextChapter>
     <ScrollTextChapter position='center' id={'quizFive-step-2'} className='mb-[50vh]'>
       Drag the circles to where you think <br/>
@@ -177,7 +181,7 @@ New safety guidelines, based on research by Surf Life Saving Australia and other
       Hit the <span className='my-1 inline-block bg-blue-400/50 py-1 px-2 rounded-full text-2xl w-10 h-10 text-black font-bold aspect-square border leading-0'>+</span> symbol to generate an Olympic pool and resize it to guess how many <span className='my-1 inline-block w-max bg-blue-600 py-1 px-2 rounded-md'>50m pool-lengths</span> a rip can take you from shore.
     </ScrollTextChapter>
     <ScrollTextChapter  position='center' id={'quizSixAnswerStep'} className='answerStep'>
-    This is a big rip, it stretches <span className="inline-block w-max bg-blue-600 py-1 px-2 rounded-md">3 olympic pools</span> into the ocean – would you be able to swim along the beach and back in with the breaking waves?
+    This is a big rip, it stretches <span className="inline-block w-max bg-blue-600 py-1 px-2 rounded-md">3 Olympic pools</span> into the ocean – would you be able to swim along the beach and back in with the breaking waves?
     </ScrollTextChapter>
     <ScrollTextChapter step='step' position='center' >
       What about if you actually get caught in a rip? What should you do?
@@ -188,19 +192,19 @@ New safety guidelines, based on research by Surf Life Saving Australia and other
     </ScrollTextChapter>
     <ScrollTextChapter position='center mb-[50vh]' >
       Great work. Now you know how to spot a rip, how they work and what to do if you find yourself in one.<br/><br/>
-      Remember that the best way to avoid a rip and to be safe on a beach is to always swim between the red and yellow flags. 
+      Remember that the best way to avoid a rip and to be safe on a beach is to always swim between the <span className='my-1 inline-block w-max bg-red-500 py-1 px-2 rounded-md'>red</span> and <span className='my-1 inline-block w-max bg-yellow-400 text-black py-1 px-2 rounded-md'>yellow</span> flags. 
     </ScrollTextChapter>
   </ScrollForeground>
 </ScrollSection>
 
 ## Survive a rip current
 
-To recap, the latest advice is to avoid swimming sideways or parallel to the beach – rips can also travel sideways so you might be swimming further into one or against the current.
+To recap, the latest advice is to float and signal for help. The traditional advice about swimming parallel doesn't always work because some rips flow at angles to the beach so you might be swimming further into one or against the current.
 
 1. **Stay calm**: Relax and don't panic.
 2. **Don’t fight the current**: Don't try and swim back to the beach against the rip current flow.
-3. **Signal for help**: Stay afloat, conserve your energy and signal or call for help to alert lifeguards or nearby surfers.
-4. **Aim for whitewater**: If you are a very good swimmer, you can try to swim slowly to the side of the rip by aiming for the whitewater and breaking waves
+3. **Float and signal for help**: Stay afloat, conserve your energy and signal or call for help to alert lifeguards or nearby surfers.
+4. **Aim for whitewater**: If you are a very good swimmer, you can try to swim slowly to the side of the rip by aiming for the whitewater and breaking waves.
 
 ## Prevention and Awareness
 
@@ -263,7 +267,7 @@ Of course the best way to avoid getting caught in a rip current is to always swi
   </Editorial>
 
   <Disclosures>
-    Rob Brander's research group receives funding from Surf Life Saving Australia.
+    Rob Brander's UNSW Beach Safety Research Group receives funding from Surf Life Saving Australia.
   </Disclosures>
 </AuthorSection>
 
