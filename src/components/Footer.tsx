@@ -4,6 +4,25 @@ export default function Footer() {
   return (
     <footer className='flex flex-col gap-3 bg-neutral-900 pt-3 text-xs md:text-sm'>
       <div className='relative top-[3px] mx-auto w-fit'>
+        <img
+          src='https://counter.theconversation.com/content/232912/count.gif?distributor=republish-lightbox-basic'
+          alt='The Conversation'
+          width='1'
+          height='1'
+          style={{
+            border: 'none !important',
+            boxShadow: 'none !important',
+            margin: '0 !important',
+            maxHeight: '1px !important',
+            maxWidth: '1px !important',
+            minHeight: '1px !important',
+            minWidth: '1px !important',
+            opacity: '0 !important',
+            outline: 'none !important',
+            padding: '0 !important'
+          }}
+          referrerPolicy='no-referrer-when-downgrade'
+        />
         <a
           href='https://theconversation.com/au'
           target='_blank'
