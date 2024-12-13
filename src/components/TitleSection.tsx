@@ -158,7 +158,8 @@ export default function TitleSection({
               AEDT
             </time>
           </div>
-          <div className='mt-4 animate-bounce'>
+          <div className='mx-auto mt-4 w-max animate-bounce'>
+            <span className='mx-auto inline-block text-center text-xs'>Scroll down</span>
             <svg
               className='mx-auto h-6 w-6 text-neutral-900'
               fill='none'
