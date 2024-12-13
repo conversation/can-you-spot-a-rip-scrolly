@@ -41,15 +41,15 @@ export default function ArticleSetup({
       { property: 'og:image', content: image }
     ]
 
-    // Append or update meta tags
-    metaTags.forEach(({ name, property, content }) => {
-      const meta = document.createElement('meta')
-      if (name) meta.setAttribute('name', name)
-      if (property) meta.setAttribute('property', property)
-      meta.setAttribute('content', content)
+    // // Append or update meta tags
+    // metaTags.forEach(({ name, property, content }) => {
+    //   const meta = document.createElement('meta')
+    //   if (name) meta.setAttribute('name', name)
+    //   if (property) meta.setAttribute('property', property)
+    //   meta.setAttribute('content', content)
 
-      document.head.appendChild(meta)
-    })
+    //   document.head.appendChild(meta)
+    // })
 
     // Drop cap logic
     const article = document.querySelector('article')
@@ -68,5 +68,5 @@ export default function ArticleSetup({
       toggleDarkMode(false)
       article.classList.add('prose-light')
     }
-  }, [])
+  }, [author, description, dropCap, image, keywords, theme, title, toggleDarkMode])
 }
