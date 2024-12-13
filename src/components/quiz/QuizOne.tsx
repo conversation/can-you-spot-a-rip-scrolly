@@ -111,7 +111,7 @@ export default function QuizOne() {
           style={{ opacity: revealAnswer.quiz1 ? 1 : 0 }}
         >
           <BackgroundImage
-            src={`https://images.theconversation.com/files/638081/original/file-20241212-19-ft47c.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
+            src={`https://images.theconversation.com/files/638369/original/file-20241213-15-hn4bm7.png?ixlib=rb-4.1.0&q=45&auto=format&w=${(originalSize.width * 2).toFixed(0)}`}
           />
         </div>
 
