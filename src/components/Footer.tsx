@@ -1,6 +1,7 @@
 import { ARTICLEWIDTH } from '../util/constants'
+import { memo } from 'react'
 
-export default function Footer() {
+function Footer() {
   return (
     <footer className='flex flex-col gap-3 bg-neutral-900 pt-3 text-xs md:text-sm'>
       <div className='relative top-[3px] mx-auto w-fit'>
@@ -99,3 +100,5 @@ export default function Footer() {
     </footer>
   )
 }
+
+export default memo(Footer)

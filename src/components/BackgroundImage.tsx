@@ -1,6 +1,7 @@
 import { Background } from 'react-imgix'
+import { memo } from 'react'
 
-export default function BackgroundImage({ src }: { src: string }) {
+function BackgroundImage({ src }: { src: string }) {
   return (
     <Background
       src={src}
@@ -11,3 +12,4 @@ export default function BackgroundImage({ src }: { src: string }) {
     ></Background>
   )
 }
+export default memo(BackgroundImage)

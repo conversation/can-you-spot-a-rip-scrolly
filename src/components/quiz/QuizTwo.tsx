@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react'
 import { Stage, Layer, Line } from 'react-konva/lib/ReactKonvaCore'
-import useSize from '@react-hook/size'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { useAtomValue } from 'jotai'
 import { quizReveal, standardSize } from '../../context/Atoms'
 import BackgroundImage from '../BackgroundImage'
+import useDebouncedSize from './useDebouncedSize'
 
 export default function QuizTwo() {
   const parentRef = useRef(null)
-  const [width, height] = useSize(parentRef)
+  const [width, height] = useDebouncedSize(parentRef)
   const [isDrawing, setIsDrawing] = useState(false)
   const [lines, setLines] = useState<{ points: number[]; stroke: string }[]>([])
   const revealAnswer = useAtomValue(quizReveal)

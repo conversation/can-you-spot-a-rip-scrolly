@@ -1,13 +1,13 @@
 import { useRef, useState, useEffect } from 'react'
 import Konva from 'konva'
 import { Stage, Layer, Image as KonvaImage, Transformer, Text, Group } from 'react-konva/lib/ReactKonvaCore'
-import useSize from '@react-hook/size'
 import useImage from 'use-image'
 import { KonvaEventObject } from 'konva/lib/Node'
 import { ReactRef } from '@gsap/react'
 import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
 import BackgroundImage from '../BackgroundImage'
+import useDebouncedSize from './useDebouncedSize'
 
 // Types
 interface ImageType {
@@ -219,7 +219,7 @@ export default function QuizSix() {
     'https://images.theconversation.com/files/635152/original/file-20241128-17-4yc7x1.png?ixlib=rb-4.1.0&q=45&auto=format&h=200'
 
   const [img] = useImage(HQImgURL)
-  const [width, height] = useSize(parentRef)
+  const [width, height] = useDebouncedSize(parentRef)
   const originalSize = useAtomValue(videoSize)
 
   const [selectedImg, setSelectedImg] = useState<number | null>(null)

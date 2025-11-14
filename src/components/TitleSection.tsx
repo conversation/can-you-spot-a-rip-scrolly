@@ -1,24 +1,18 @@
 import { ReactNode, useRef } from 'react'
-import TitleTextBorder from './TitleTextBorder'
 import { cn } from '../util/helpers'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 
 export default function TitleSection({
   children,
-  title,
-  standFirst,
+
   publishDate,
   author,
   authorLink,
   authorAffiliation,
   authorAffiliationLink,
   className,
-  clipped,
-  textBackground
+  clipped
 }: {
-  children?: ReactNode
+  children: ReactNode
   title?: string
   standFirst?: string
   publishDate: string
@@ -30,7 +24,6 @@ export default function TitleSection({
   clipped?: boolean
   textBackground?: boolean
 }) {
-  // const { isDarkMode } = useDarkMode()
   const sectionRef = useRef<HTMLDivElement>(null)
 
   const createAuthor = () => {
@@ -59,50 +52,6 @@ export default function TitleSection({
     )
   }
 
-  useGSAP(
-    () => {
-      const section = sectionRef.current
-      if (!section) return
-
-      const header = document.querySelector('header')
-      if (!header) return
-
-      const titleImage = section.querySelector('#titleImg > *')
-      if (!titleImage) return
-
-      const titleVideo: HTMLVideoElement | null = document.getElementById('title_video') as HTMLVideoElement
-      if (!titleVideo) return
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            scrub: true,
-            trigger: clipped ? section : titleImage,
-            start: 'top top',
-            end: 'bottom top'
-          }
-        })
-        .fromTo(
-          titleImage,
-          { y: clipped ? header.clientHeight : 0 },
-          { y: clipped ? header.clientHeight * -1 : 100, ease: 'linear' }
-        )
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'bottom bottom',
-        end: 'bottom top',
-        onLeave: () => {
-          titleVideo.pause()
-        },
-        onEnterBack: () => {
-          titleVideo.play()
-        }
-      })
-    },
-    { scope: sectionRef }
-  )
-
   return (
     <section
       ref={sectionRef}
@@ -114,30 +63,18 @@ export default function TitleSection({
     >
       <div className={cn('grid h-full w-full', clipped ? 'fixed top-0' : '')}>
         <div className={cn('z-10 col-start-1 row-start-1 mt-[20vh] max-h-screen place-content-center px-8 lg:pt-12')}>
-          <div className='mx-auto max-w-[40ch] text-center'>
-            {textBackground && title ? (
-              <>
-                <TitleTextBorder
-                  as={'h1'}
-                  className='not-prose text-balance text-center font-base text-4xl font-bold md:text-5xl lg:text-6xl'
-                >
-                  {title}
-                </TitleTextBorder>
-                <br />
-              </>
-            ) : (
-              <h1 className='not-prose text-balance text-center font-base text-4xl font-bold md:text-5xl lg:text-6xl'>
-                {title}
+          <div className='mx-auto text-center'>
+            <div className='mx-auto mb-4 w-full max-w-[32ch] text-center'>
+              <h1 className='not-prose relative z-10 inline text-balance bg-neutral-700 box-decoration-clone px-2 text-center font-base text-4xl font-bold !leading-[1.2] text-white md:text-5xl lg:text-6xl'>
+                Can you spot a rip current?
               </h1>
-            )}
+            </div>
 
-            {textBackground && standFirst ? (
-              <TitleTextBorder as={'h2'} className='not-prose text-center font-base text-2xl md:text-3xl lg:text-3xl'>
-                {standFirst}
-              </TitleTextBorder>
-            ) : (
-              <h2 className='not-prose text-center font-base text-2xl md:text-3xl lg:text-4xl'>{standFirst}</h2>
-            )}
+            <div className='mx-auto w-full max-w-[40ch] text-center'>
+              <h2 className='not-prose relative z-10 inline text-balance bg-neutral-700 box-decoration-clone px-2 text-center font-base text-2xl !leading-[1] text-white md:text-3xl lg:text-3xl'>
+                Take our 5-minute quiz on Australia's number-one coastal hazard
+              </h2>
+            </div>
 
             <p className='!mb-1 !mt-4 text-xs md:text-sm'>{createAuthor()}</p>
 
@@ -158,6 +95,7 @@ export default function TitleSection({
               AEDT
             </time>
           </div>
+
           <div className='mx-auto mt-4 w-max animate-bounce'>
             <span className='mx-auto inline-block text-center text-xs'>Scroll down</span>
             <svg

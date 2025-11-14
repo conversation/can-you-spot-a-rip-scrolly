@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
-import Article from './components/Article'
-import Footer from './components/Footer'
-import Header from './components/Header'
+import { useEffect, lazy, Suspense } from 'react'
 import { DarkModeProvider } from './context/DarkModeProvider'
 import MarkdownProvider from './providers/MarkdownProvider'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+
+const Header = lazy(() => import('./components/Header'))
+const Article = lazy(() => import('./components/Article'))
+const Footer = lazy(() => import('./components/Footer'))
 
 export default function App() {
   gsap.registerPlugin(ScrollTrigger)
@@ -36,9 +37,11 @@ export default function App() {
   return (
     <DarkModeProvider>
       <MarkdownProvider>
-        <Header />
-        <Article />
-        <Footer />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Header />
+          <Article />
+          <Footer />
+        </Suspense>
       </MarkdownProvider>
     </DarkModeProvider>
   )

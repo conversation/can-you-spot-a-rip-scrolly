@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
 import { Stage, Layer, Arrow, Circle, Text, Group } from 'react-konva/lib/ReactKonvaCore'
-import useSize from '@react-hook/size'
 import Konva from 'konva'
 import { quizReveal, videoSize } from '../../context/Atoms'
 import { useAtomValue } from 'jotai'
+import useDebouncedSize from './useDebouncedSize'
 
 interface Target {
   id: number
@@ -39,7 +39,7 @@ export default function QuizFive() {
   const parentRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<Konva.Stage>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [width, height] = useSize(parentRef)
+  const [width, height] = useDebouncedSize(parentRef)
   const originalSize = useAtomValue(videoSize)
   const [targets, setTargets] = useState<Target[]>([])
   const [radius, setRadius] = useState<number>(10)

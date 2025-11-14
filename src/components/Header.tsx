@@ -1,4 +1,6 @@
-export default function Header() {
+import { memo } from 'react'
+
+function Header() {
   return (
     <div className='pointer-events-none absolute top-0 h-screen w-full'>
       <header className='not-prose pointer-events-auto sticky top-0 z-50 w-full bg-neutral-900 px-4 py-2'>
@@ -60,3 +62,5 @@ export default function Header() {
     </div>
   )
 }
+
+export default memo(Header)
