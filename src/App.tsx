@@ -37,7 +37,13 @@ export default function App() {
   return (
     <DarkModeProvider>
       <MarkdownProvider>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className='h-screen place-content-center bg-[rgb(142_158_157_/1)]'>
+              <p className='text-center text-lg font-bold'>Loading..</p>.
+            </div>
+          }
+        >
           <Header />
           <Article />
           <Footer />
