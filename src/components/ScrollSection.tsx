@@ -35,6 +35,7 @@ export function ScrollSection({
 
       steps.forEach((step, index) => {
         const element = backgroundElements[index + 1]
+        const prevElement = backgroundElements[index - 1] // this will make it so the prev prev element isn't being rendered unnecessarily
 
         if (element) {
           ScrollTrigger.create({
@@ -42,9 +43,11 @@ export function ScrollSection({
             start: 'top 90%',
             onEnter: () => {
               element.classList.add('make_visible')
+              prevElement.classList.add('make_hidden')
             },
             onLeaveBack: () => {
               element.classList.remove('make_visible')
+              prevElement.classList.remove('make_hidden')
             }
           })
         }

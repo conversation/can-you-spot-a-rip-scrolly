@@ -172,6 +172,7 @@ export default function QuizFive() {
           muted
           controls={false}
           onEnded={handleVideoEnd}
+          poster='https://images.theconversation.com/files/702739/original/file-20251117-66-8ni33p.jpeg?ixlib=rb-4.1.0&q=45&auto=format&w=1200'
           className='pointer-events-none h-full w-full object-cover'
         >
           <source

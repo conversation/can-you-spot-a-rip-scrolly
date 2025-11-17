@@ -267,6 +267,7 @@ export default function QuizSix() {
           autoPlay
           muted
           loop
+          poster='https://images.theconversation.com/files/702740/original/file-20251117-56-o17sj1.jpeg?ixlib=rb-4.1.0&q=45&auto=format&w=1200'
           className='pointer-events-none absolute left-0 top-0 h-full w-full object-cover'
         >
           <source

@@ -36,6 +36,10 @@
     @apply float-left mb-[-0.4rem] mr-[0.1em] mt-[0.05rem] block max-w-full text-[5.925em] leading-[0.9] md:text-[6em];
   }
 
+  .make_hidden {
+    display: none;
+  }
+
   .make_visible {
     @apply pointer-events-auto opacity-100;
   }
